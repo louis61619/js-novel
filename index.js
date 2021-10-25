@@ -1,4 +1,0 @@
-function aa() {
-  confirm
-}
-aa()
