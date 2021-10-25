@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, onUnmounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import Layout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
-import { usePageFrontmatter, useSiteLocaleData, withBase } from '@vuepress/client'
+import { usePageFrontmatter, useSiteLocaleData } from '@vuepress/client'
 import { init } from 'ityped'
 
 export default defineComponent({
@@ -39,18 +39,8 @@ export default defineComponent({
     const domHeight = ref(0)
     const localData = useSiteLocaleData()
 
-    const setDesHeight = () => {
-      domHeight.value = desHeight.value.clientHeight
-    }
-
     onMounted(() => {
-      // setDesHeight()
-      // window.addEventListener('resize', setDesHeight)
       init(desDom.value, { showCursor: true, strings: [localData.value.description + '...'] })
-    })
-
-    onUnmounted(() => {
-      // window.removeEventListener('resize', setDesHeight)
     })
 
     return {

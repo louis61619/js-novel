@@ -30,7 +30,7 @@ jobs:
           yarn install
       - name: build docs
         run: |
-          yarn run docs:build
+          yarn docs:build
       - name: Commit files
         run: |
           cd $PUBLISH_DIR

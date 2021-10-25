@@ -1,4 +1,4 @@
-import { fs, path } from '@vuepress/utils'
+import { path } from '@vuepress/utils'
 
 export default {
   title: `louis's blog`,
