@@ -3,14 +3,14 @@
     <template #page>
       <main class="home home-container">
         <header class="hero">
-          <img src="/images/home.svg" alt="home-logo" />
+          <img :src="withBase(data.heroImage)" alt="home-logo" />
 
           <h1>{{ localData.title }}</h1>
           <p class="description" :style="{ height: `${domHeight}px` }">
             <span ref="desDom"></span>
           </p>
           <button class="actions">
-            <a :href="data.actions[0].link">{{ data.actions[0].text }}</a>
+            <a :href="withBase(data.actions[0].link)">{{ data.actions[0].text }}</a>
           </button>
         </header>
         <div class="footer">
@@ -24,7 +24,7 @@
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
 import Layout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
-import { usePageFrontmatter, useSiteLocaleData } from '@vuepress/client'
+import { usePageFrontmatter, useSiteLocaleData, withBase } from '@vuepress/client'
 import { init } from 'ityped'
 
 export default defineComponent({
@@ -48,7 +48,8 @@ export default defineComponent({
       localData,
       desDom,
       desHeight,
-      domHeight
+      domHeight,
+      withBase
     }
   }
 })
@@ -56,11 +57,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .hero {
-  /* padding-top: 1rem;
-  height: calc(100vh - 8rem);
-  padding-left: 2rem; */
-  /* padding-bottom: 3rem; */
-
   .description {
     padding-bottom: 3rem;
   }

@@ -4,7 +4,8 @@ export default {
   title: `louis's blog`,
   description: '這是一個web開發者的部落格',
   theme: path.resolve(__dirname, './theme'),
-  base: process.env.NODE_ENV === 'production' ? '/blog/' : '/',
+  // base: process.env.NODE_ENV === 'production' ? '/blog/' : '/',
+  base: '/blog/',
   themeConfig: {
     // logo: '/logo.png',
 

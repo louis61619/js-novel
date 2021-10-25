@@ -29,6 +29,7 @@
     }
   },
   "dependencies": {
+    "@vuepress/theme-default": "^2.0.0-beta.26",
     "ityped": "^1.0.3"
   }
 }
