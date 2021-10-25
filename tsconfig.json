@@ -22,6 +22,6 @@
     // 指定在項目中可以使用哪些庫的類型
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["docs/**/*.ts"],
+  "include": ["docs/.vuepress/**/*.ts", "docs/shims-vue.d.ts"],
   "exclude": ["node_modules"]
 }

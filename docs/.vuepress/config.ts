@@ -1,39 +1,35 @@
-export default {
-  title: 'elp-schema-form',
-  description: 'Vue3 + ElementPlus 组件库',
+import { fs, path } from '@vuepress/utils'
 
+export default {
+  title: `louis's blog`,
+  description: '這是一個web開發者的部落格',
+  theme: path.resolve(__dirname, './theme'),
   themeConfig: {
     // logo: '/logo.png',
 
-    repo: 'https://github.com/louis61619/elp-schema-form',
-    darkMode: false,
-    // editLink: false,
+    repo: 'https://github.com/louis61619/blog.git',
 
     navbar: [
-      { text: '介紹', link: '/' },
       {
-        text: '组件',
-        link: '/components/form'
+        text: '前端',
+        children: [
+          {
+            text: 'javascript',
+            link: '/blog/front-end/javascript/'
+          },
+          {
+            text: 'react',
+            link: '/blog/front-end/react/'
+          }
+        ]
       }
     ],
 
     sidebar: {
-      '/': [
-        {
-          text: '介紹',
-          children: ['/README.md']
-        }
-        // {
-        //   text: '組件',
-        //   children: ['/components/form.md']
-        // }
-      ],
-      '/components/': [
-        '/components/overview',
-        {
-          text: '組件',
-          children: ['/components/form', '/components/table']
-        }
+      '/blog/front-end/javascript': [
+        '/blog/front-end/javascript/index.md',
+        '/blog/front-end/javascript/正則.md',
+        '/blog/front-end/javascript/閉包.md'
       ]
     }
   }

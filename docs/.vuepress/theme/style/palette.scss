@@ -1,0 +1,31 @@
+// colors
+$accentColor: #e63657;
+$textColor: #20202f;
+$borderColor: #eaecef !default;
+$codeBgColor: var(--code-bg-color);
+$highlightLineBgColor: #bbb;
+$lineNumbersColor: inherit;
+$arrowBgColor: #ccc !default;
+$tipColor: #42b983 !default;
+$warningColor: #e7c000 !default;
+$dangerColor: #cc0000 !default;
+$badgeTipColor: $tipColor !default;
+$badgeWarningColor: $warningColor !default;
+$badgeDangerColor: $dangerColor !default;
+
+// layout
+$navbarHeight:  var(--header-height);
+$sidebarWidth: 20rem !default;
+$contentWidth: var(--page-width);
+$homePageWidth: 1136px !default;
+
+// responsive breakpoints
+$MQNarrow: 959px !default;
+$MQMobile: 719px !default;
+$MQMobileNarrow: 419px !default;
+
+// code
+$lineNumbersWrapperWidth: 2.5rem;
+$codeLang: 'c' 'cpp' 'cs' 'css' 'dart' 'docker' 'fs' 'go' 'html' 'java' 'js'
+  'json' 'kt' 'less' 'makefile' 'md' 'php' 'py' 'rb' 'rs' 'sass' 'scss' 'sh'
+    'styl' 'ts' 'toml' 'vue' 'yml' !default;
