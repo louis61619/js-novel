@@ -1,38 +1,37 @@
 import { path } from '@vuepress/utils'
+import type { DefaultThemeOptions } from 'vuepress'
+import { defineUserConfig } from 'vuepress'
 
-export default {
+export default defineUserConfig<DefaultThemeOptions>({
   title: `louis's blog`,
   description: '這是一個web開發者的部落格',
   theme: path.resolve(__dirname, './theme'),
-  // base: process.env.NODE_ENV === 'production' ? '/blog/' : '/',
   base: '/blog/',
   themeConfig: {
-    // logo: '/logo.png',
-
     repo: 'https://github.com/louis61619/blog.git',
-
     navbar: [
       {
         text: '前端',
         children: [
           {
             text: 'javascript',
-            link: '/blog/front-end/javascript/'
+            link: '/front-end/javascript/this.md'
           },
           {
             text: 'react',
-            link: '/blog/front-end/react/'
+            link: '/front-end/react/'
           }
         ]
       }
     ],
 
     sidebar: {
-      '/blog/front-end/javascript': [
-        '/blog/front-end/javascript/index.md',
-        '/blog/front-end/javascript/正則.md',
-        '/blog/front-end/javascript/閉包.md'
+      '/front-end/javascript': [
+        '/front-end/javascript/this.md',
+        '/front-end/javascript/arguments.md',
+        '/front-end/javascript/call-apply-bind.md',
+        '/front-end/javascript/pure-function.md'
       ]
     }
   }
-}
+})
