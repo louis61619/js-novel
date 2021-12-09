@@ -29,8 +29,8 @@ export default defineUserConfig<DefaultThemeOptions>({
       '/front-end/javascript': [
         '/front-end/javascript/this.md',
         '/front-end/javascript/arguments.md',
-        '/front-end/javascript/call-apply-bind.md',
-        '/front-end/javascript/pure-function.md'
+        '/front-end/javascript/call-apply-bind.md'
+        // '/front-end/javascript/pure-function.md'
       ]
     }
   }
