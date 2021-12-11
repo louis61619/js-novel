@@ -9,9 +9,11 @@
           <p class="description" :style="{ height: `${domHeight}px` }">
             <span ref="desDom"></span>
           </p>
-          <button class="actions">
-            <a :href="withBase(data.actions[0].link)">{{ data.actions[0].text }}</a>
-          </button>
+          <a :href="withBase(data.actions[0].link)">
+            <button class="actions">
+              {{ data.actions[0].text }}
+            </button>
+          </a>
         </header>
         <div class="footer">
           {{ data.footer }}
