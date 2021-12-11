@@ -1,4 +1,4 @@
-# 認識arguments和array-like物件
+# arguments和array-like
 
 arguments是函數中的一個由所有參數所合成的類陣列(array-like)物件。
 

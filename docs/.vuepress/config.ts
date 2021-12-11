@@ -30,7 +30,11 @@ export default defineUserConfig<DefaultThemeOptions>({
         '/front-end/javascript/this.md',
         '/front-end/javascript/arguments.md',
         '/front-end/javascript/call-apply-bind.md',
-        '/front-end/javascript/pure-function.md'
+        '/front-end/javascript/functional-programming.md',
+        '/front-end/javascript/strict-mode.md',
+        '/front-end/javascript/object-oriented.md',
+
+        '/front-end/javascript/supplement.md'
       ]
     }
   }

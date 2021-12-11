@@ -1,8 +1,6 @@
-# 用JavaScript模擬apply、call、bind
+# apply、call、bind
 
 練習實現apply、call、bind，並更深刻的了解this和在函數中的調用關係。
-
-
 
 ## call的實現
 
@@ -146,8 +144,6 @@ console.log(result)
 50
 ```
 
-
-
 ## apply的實現
 
 apply和call的實現方式幾乎相同，差別只在於傳入參數的形式，apply是以陣列的形式將參數傳入：
@@ -186,8 +182,6 @@ foo函數執行 String {'louis', fn: ƒ}
 50
 ```
 
-
-
 ## bind的實現
 
 bind和call、apply最大的差別是會返回一個函數，這個返回的函數會綁定傳入的物件作為this。
@@ -210,13 +204,12 @@ Function.prototype.mybind = function(thisArg, ...argArray) {
 Function.prototype.mybind = function(thisArg, ...argArray) {
   var fn = this
   thisArg = thisArg !== null && thisArg !== undefined && Object(thisArg) || window
-  
+
   return function(...args) {
-		// ...在返回的函數中進行this綁定
+     // 在返回的函數中進行this綁定
     thisArg.fn = fn
     // 將新函數的參數一起傳入要調用的函數中
     return thisArg.fn(...argArray, ...args)
   }
 }
 ```
-

@@ -1,8 +1,6 @@
-# JavaScript中的this
+# This
 
 常見的編程語言中，幾乎都有this關鍵字，但是JavaScript中的this和常見的物件導向語言中的this不太一樣，通常在Java、C++等語言中需要有一個類才能透過this調用當前物件。
-
-
 
 ## this的作用
 
@@ -38,8 +36,6 @@ obj.eating();
 
 不過這樣做當我們改變物件名稱時，內部方法就要跟著進行改變，少了this會缺少很多複用程式碼的機會。
 
-
-
 ## this在全局作用域中
 
 一般來說當我們在瀏覽器中執行：
@@ -65,8 +61,6 @@ console.log(this);
 ```
 { obj: { foo: 'foo' } }
 ```
-
-
 
 ## this在函數中
 
@@ -135,8 +129,6 @@ newFoo();
 
 輸出的結果為String物件。
 
-
-
 ## this在透過構造函數(new)創建出來的物件中
 
 JavaScript可以使用new關鍵字進行函數的調用，而使用new創建出來的物件會直接將this和該物件進行綁定。
@@ -151,13 +143,9 @@ var p1 = new Person("why", 10);
 console.log(p1.name, p1.age);
 ```
 
-
-
 ## this綁定規則的優先級
 
 new構造函數 > call/apply/bind > 作為物件中的方法調用 > 直接調用函數
-
-
 
 ## this與箭頭函數
 
@@ -202,4 +190,3 @@ var obj = {
 }
 obj.getData()
 ```
-
