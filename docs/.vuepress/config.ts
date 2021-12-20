@@ -1,12 +1,16 @@
 import { path } from '@vuepress/utils'
 import type { DefaultThemeOptions } from 'vuepress'
 import { defineUserConfig } from 'vuepress'
+import { mdPlugin } from './plugin'
 
 export default defineUserConfig<DefaultThemeOptions>({
   title: `Louis's blog`,
   description: '這是一個web開發者的部落格',
   theme: path.resolve(__dirname, './theme'),
   base: '/blog/',
+  extendsMarkdown: (md) => {
+    md.use(mdPlugin)
+  },
   themeConfig: {
     repo: 'https://github.com/louis61619/blog.git',
     navbar: [
