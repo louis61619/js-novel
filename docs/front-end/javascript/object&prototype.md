@@ -1,7 +1,5 @@
 # 物件和原型
 
-JavaScript支持了多種程式設計的範式，包含函數式編程（ Functional Programming ）和物件導向編程（ Object-oriented programming ）：
-
 - JavaSciprt中的物件被設計成一組**屬性的無序集合**，類似一個哈希表，由key和value組成。
 
 - Key是一個標識符名稱，value可以是任意類型，也可以是**物件或者函數類型**
@@ -257,7 +255,7 @@ var p3 = createPerson('王五', 18, 1.88, '桃園')
 如果一個函數使用 new 操作符去調用，那會執行以下操作：
 
 1. 創建一個空的物件（ 即 {} ）；
-2. 為新創建的物件添加 `__proto__` ，同時函數的 prototype 會該屬性進行引用；
+2. 為新創建的物件添加 `__proto__` ，同時該屬性會對函數的 prototype 進行引用；
 3. 構造函數的內部的 this 會指向新創建的物件；
 4. 如果該函數沒有返回值，則返回 this。
 

@@ -1,4 +1,4 @@
-# This
+# this
 
 常見的編程語言中，幾乎都有this關鍵字，但是JavaScript中的this和常見的物件導向語言中的this不太一樣，通常在Java、C++等語言中需要有一個類才能透過this調用當前物件。
 

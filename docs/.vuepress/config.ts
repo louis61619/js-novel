@@ -3,7 +3,7 @@ import type { DefaultThemeOptions } from 'vuepress'
 import { defineUserConfig } from 'vuepress'
 
 export default defineUserConfig<DefaultThemeOptions>({
-  title: `louis's blog`,
+  title: `Louis's blog`,
   description: '這是一個web開發者的部落格',
   theme: path.resolve(__dirname, './theme'),
   base: '/blog/',
@@ -33,7 +33,7 @@ export default defineUserConfig<DefaultThemeOptions>({
 
         '/front-end/javascript/functional-programming.md',
         '/front-end/javascript/object&prototype.md',
-        // '/front-end/javascript/object&class.md',
+        '/front-end/javascript/prototype-chain&Inhertitance.md',
 
         '/front-end/javascript/strict-mode.md',
         '/front-end/javascript/supplement.md'
