@@ -291,7 +291,7 @@ var p2 = new Person("Jenny", 20, 1.7, "台北市")
 
 在 JavaScript 中函數也是物件，不過相對於一般的物件來說，函數會多出一個 prototype 屬性 ( 顯示原型 ) 。
 
-函數的 prototype 中也存在一個屬性 constructor（ 建構子 ），constructor 是指向上層 prototype 的，意即兩者之間互相循環引用。
+函數的 prototype 中也存在一個屬性 constructor，constructor 是重新指回構造函數本身的，意即兩者之間互相循環引用。
 
 如果執行這一段程式碼：
 
@@ -335,7 +335,7 @@ console.log(f1.name)
 console.log(f2.name)
 ```
 
-也可以進行整個物件替換，不過要補上 constructor 對 prototype 的指向：
+也可以進行整個物件替換，不過要補上 constructor 對構造函數的指向：
 
 ```js
 foo.prototype = {

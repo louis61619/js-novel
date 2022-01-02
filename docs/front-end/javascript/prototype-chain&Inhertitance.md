@@ -355,6 +355,24 @@ var stu = new Student('Louis', 111)
 
 
 
+
+
+## 物件、函數與原型
+
+假設有這樣的一行程式碼：
+
+```js
+function Foo() {}
+```
+
+原型鏈中的關係如下圖：
+
+![image-20211220204350619](assets/image-20211220204350619.png)
+
+
+
+
+
 ## 有關原型的方法補充
 
 - hasOwnProperty

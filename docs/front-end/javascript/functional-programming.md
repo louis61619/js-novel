@@ -291,4 +291,3 @@ const doubleAndSquare = myCompose(double, square)
 // 400
 console.log(doubleAndSquare(10))
 ```
-
