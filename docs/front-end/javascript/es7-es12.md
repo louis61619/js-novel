@@ -121,8 +121,6 @@ async function foo() {
 
 ### Async iterators
 
-在迭代器中解釋。
-
 
 
 ### Object spread operators
@@ -132,8 +130,6 @@ async function foo() {
 
 
 ### Promise finally
-
-在 promise 中解釋。
 
 
 
@@ -207,8 +203,6 @@ Symbol 數據的描述。
 
 
 ### Optional catch binding
-
-在 try catch 中解釋。
 
 
 
@@ -284,13 +278,9 @@ console.log(info.friend?.name)
 
 ### Promise.allSettled
 
-Promis 中解釋。
-
 
 
 ### import meta
-
-ES Module中解釋。
 
 
 

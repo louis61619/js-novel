@@ -62,9 +62,9 @@ TurboFan 會標記多次執行的函數直接轉換為 Machine Code(機器碼)�
 
 ## 關鍵名詞
 
-### 執行上下文棧(Execution Context Stack, ECStack)
+### 執行環境堆疊 (Execution Context Stack, ECStack)
 
-當Javascript首次執行時，會運行一個執行上下文棧(Execution Context Stack, ECStack)，它是一種先進後出的結構，被用於儲存所有創建過的執行環境。
+當Javascript首次執行時，會運行一個執行環境堆疊(Execution Context Stack, ECStack)，它是一種先進後出的結構，被用於儲存所有創建過的執行環境。
 
 ![What is the Execution Context &amp; Stack in JavaScript? | by Madhavan  Nagarajan | Medium](https://i.imgur.com/0cu2axe.jpg)
 
@@ -168,7 +168,7 @@ bar();
 
 >Every execution context has associated with it a variable object.Variables and functions declared in the source text are added as properties of the variable object.For function, anonymous, and implementation-supplied code, parameters are added as properties of the variable object.
 >
->每一個執行上下(execution context)會被關聯到一個變數物件(variable object，VO)，在源代碼中聲明的變數或函數會作為屬性被添加到VO中。
+>每一個執行環境(execution context)會被關聯到一個變數物件(variable object，VO)，在程式碼中聲明的變數或函數會作為屬性被添加到VO中。
 >
 >對於函數來說，參數也會被添加到VO中。
 

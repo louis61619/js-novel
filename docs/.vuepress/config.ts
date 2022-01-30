@@ -41,14 +41,29 @@ export default defineUserConfig<DefaultThemeOptions>({
         '/front-end/javascript/prototype-chain&Inhertitance.md',
         '/front-end/javascript/es6&class.md',
         '/front-end/javascript/es6&new-type.md',
-        '/front-end/javascript/object&prototype.md',
         '/front-end/javascript/es6-syntactic-sugar.md',
         '/front-end/javascript/var&let&const.md',
         '/front-end/javascript/es7-es12.md',
+        '/front-end/javascript/strict-mode.md',
+        '/front-end/javascript/supplement.md',
         '/front-end/javascript/proxy&reflect.md',
         '/front-end/javascript/promise.md',
-        '/front-end/javascript/strict-mode.md',
-        '/front-end/javascript/supplement.md'
+        '/front-end/javascript/iterator.md',
+        '/front-end/javascript/generator.md',
+        '/front-end/javascript/async-await.md',
+        '/front-end/javascript/event-loop.md',
+        '/front-end/javascript/handle-error.md',
+        '/front-end/javascript/module.md',
+        '/front-end/javascript/package-manager.md',
+        '/front-end/javascript/json.md',
+        '/front-end/javascript/web-storage.md',
+        '/front-end/javascript/IndexDB.md',
+        '/front-end/javascript/cookie.md',
+        '/front-end/javascript/BOM.md',
+        '/front-end/javascript/DOM.md',
+        '/front-end/javascript/throttle&debounce.md',
+        '/front-end/javascript/deep-copy.md',
+        '/front-end/javascript/event-bus.md'
       ]
     }
   }

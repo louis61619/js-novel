@@ -600,20 +600,20 @@ stu.eating()
 
 ## 類的多態
 
-在 JavaScript 中存不存在多態或許有些爭議，不過如果從傳入不同數據類型的表現型式就不同的定義上來看，多態就是存在的：
+在 JavaScript 中存不存在多態或許有些爭議，不過如果從傳入不同數據類型的呈現結果就不同的定義上來看，多態就是存在的：
 
 ```js
 function calcArea(shape) {
   console.log(shape.getArea())
 }
 
-var Circle = {
+var obj1 = {
   getArea: function() {
     return 1000
   }
 }
 
-class Rectangle {
+class Person {
   getArea() {
     return 100
   }
@@ -623,5 +623,36 @@ var p = new Person()
 
 calcArea(obj1)
 calcArea(p)
+```
+
+或者也可以使用 TypeScript ：
+
+```ts
+class Shape {
+  getArea() {}
+}
+
+class Rectangle extends Shape {
+  getArea() {
+    return 100
+  }
+}
+
+class Circle extends Shape {
+  getArea() {
+    return 200
+  }
+}
+
+var r = new Rectangle()
+var c = new Circle()
+
+// 多態： 當對不同數據類型執行同一個操作時，如果表現出來的形式不一樣就是多態的體現
+function calcArea(shape: Shape) {
+  console.log(shape.getArea())
+}
+
+calcArea(r)
+calcArea(c)
 ```
 
