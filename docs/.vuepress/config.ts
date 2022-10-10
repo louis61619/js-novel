@@ -1,70 +1,99 @@
-import { path } from '@vuepress/utils'
+import { NavbarConfig } from '@vuepress/theme-default'
+import { path, fs } from '@vuepress/utils'
 import type { DefaultThemeOptions } from 'vuepress'
 import { defineUserConfig } from 'vuepress'
 import { mdPlugin } from './plugin'
+
+type ConfigType = {
+  path?: string
+  text: string
+  link?: string
+}
+
+type ConfigsType = (
+  | ConfigType
+  | {
+      text: string
+      children: ConfigsType
+    }
+)[]
+
+const config: ConfigsType = [
+  {
+    text: '前端',
+    children: [
+      {
+        path: '/front-end/javascript',
+        text: 'javascript'
+      },
+      {
+        path: '/front-end/react',
+        text: 'react'
+      }
+    ]
+  },
+  {
+    text: '演算法',
+    path: '/algorithm'
+  }
+]
+
+function getConfig(
+  rawConfigs: ConfigsType,
+  navbar: {
+    text: string
+    link: string
+  }[] = [],
+  sidebar: {
+    [key: string]: string[]
+  } = {}
+) {
+  for (const raw of rawConfigs) {
+    if ('children' in raw) {
+      getConfig(raw.children, navbar, sidebar)
+    } else {
+      const _path = path.resolve(__dirname, `..${raw.path}`)
+      const files = fs
+        .readdirSync(path.resolve(__dirname, _path))
+        .filter((x) => /.md$/.test(x))
+        .sort((a, b) => {
+          const aIndex = Number(a.split('_')[0])
+          const bIndex = Number(b.split('_')[0])
+          return aIndex - bIndex
+        })
+
+      const filesPath = files.map((file) => raw.path + '/' + file)
+
+      if (raw.path && !sidebar[raw.path]) {
+        sidebar[raw.path] = filesPath
+      }
+
+      delete raw.path
+      raw.link = filesPath[0]
+    }
+  }
+
+  return {
+    navbar: rawConfigs as NavbarConfig,
+    sidebar
+  }
+}
+
+const { navbar, sidebar } = getConfig(config)
 
 export default defineUserConfig<DefaultThemeOptions>({
   title: `Louis's blog`,
   description: '這是一個web開發者的部落格',
   theme: path.resolve(__dirname, './theme'),
   base: '/blog/',
-  extendsMarkdown: (md) => {
+  extendsMarkdown: (md: any) => {
     md.use(mdPlugin)
   },
   themeConfig: {
     repo: 'https://github.com/louis61619/blog.git',
-    navbar: [
-      {
-        text: '前端',
-        children: [
-          {
-            text: 'javascript',
-            link: '/front-end/javascript/this.md'
-          },
-          {
-            text: 'react',
-            link: '/front-end/react/'
-          }
-        ]
-      }
-    ],
-
-    sidebar: {
-      '/front-end/javascript': [
-        '/front-end/javascript/how-browsers-work.md',
-        '/front-end/javascript/closure.md',
-        '/front-end/javascript/this.md',
-        '/front-end/javascript/arguments.md',
-        '/front-end/javascript/call&apply&bind.md',
-        '/front-end/javascript/functional-programming.md',
-        '/front-end/javascript/object&prototype.md',
-        '/front-end/javascript/prototype-chain&Inhertitance.md',
-        '/front-end/javascript/es6&class.md',
-        '/front-end/javascript/es6&new-type.md',
-        '/front-end/javascript/es6-syntactic-sugar.md',
-        '/front-end/javascript/var&let&const.md',
-        '/front-end/javascript/es7-es12.md',
-        '/front-end/javascript/strict-mode.md',
-        '/front-end/javascript/supplement.md',
-        '/front-end/javascript/proxy&reflect.md',
-        '/front-end/javascript/promise.md',
-        '/front-end/javascript/iterator.md',
-        '/front-end/javascript/generator.md',
-        '/front-end/javascript/async-await.md',
-        '/front-end/javascript/event-loop.md',
-        '/front-end/javascript/handle-error.md',
-        '/front-end/javascript/module.md',
-        '/front-end/javascript/package-manager.md',
-        '/front-end/javascript/json.md',
-        '/front-end/javascript/web-storage.md',
-        '/front-end/javascript/IndexDB.md',
-        '/front-end/javascript/cookie.md',
-        '/front-end/javascript/BOM.md',
-        '/front-end/javascript/DOM.md',
-        '/front-end/javascript/throttle&debounce.md',
-        '/front-end/javascript/deep-copy.md',
-        '/front-end/javascript/event-bus.md'
-      ]
-    }
+    navbar,
+    sidebar
   }
 })
+
+export { navbar }
