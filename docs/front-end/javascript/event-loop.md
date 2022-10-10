@@ -7,8 +7,6 @@
 
 可以認為，啟動一個應用程序就會啟動一個以上的進程，而每一個進程中至少有一個以上的線程。
 
-
-
 ## 瀏覽器中的 JavaScript 線程
 
 瀏覽器本身是多進程的，當開啟一個新的頁面都會獨立開啟一個新的進程，這是為了防止一個頁面卡死造成所有頁面無法響應，每個進程中又包含很多線程，其中包含執行 JavaScript 的線程。
@@ -33,13 +31,13 @@ async function async1() {
   console.log('async end')
 }
 
-async function async2 () {
+async function async2() {
   console.log('async2')
 }
 
 console.log('script start')
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout')
 })
 
@@ -61,8 +59,6 @@ console.log('script end')
 
 打印順序依序為：main script => microtask queue => macrotask queue
 
-
-
 ## Nodejs 中的 JavaScript 線程
 
 Nodejs 中的事件循環是由 libuv 來實現的。
@@ -82,6 +78,7 @@ Nodejs 中的事件循環是由 libuv 來實現的。
 Nodejs 中的事件循環相對更為複雜，也分成微任務和宏任務，並且隊列也做出更多的細分，執行順序由上至下：
 
 - 微任務
+
   - Next tick queue：process.nextTick
   - Other queue：Promise 的 then 回調、queueMicrotask
 

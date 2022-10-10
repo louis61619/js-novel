@@ -8,8 +8,6 @@ DOM 呈現如以下的架構：
 
 下一層級的會繼承上一層的屬性和方法，最上層的 EventTarget 是用於處理事件監聽的。
 
-
-
 ## Node
 
 透過 Node 中內建的屬性和方法能夠輕鬆獲取 dom 元素的類型：
@@ -31,8 +29,6 @@ strongEl.textContent = '我是 strong 元素'
 // 插入元素
 divEl.appendChild(strongEl)
 ```
-
-
 
 ## Document
 
@@ -65,8 +61,6 @@ const divEl3 = document.querySelector('div')
 const divEl4 = document.querySelectorAll('div')
 ```
 
-
-
 ## Element
 
 常見的 element 屬性，如 id 、tagName、clientWidth，能夠獲取元素上的資訊，並可以用內建的方法來設置屬性和獲取屬性：
@@ -78,8 +72,6 @@ const value = divEl.getAttribute('my-name')
 // Louis
 console.log(value)
 ```
-
-
 
 ## 事件監聽
 
@@ -113,7 +105,7 @@ console.log(value)
 
 ```js
 const divEl = document.querySelector('.box')
-divEl.onclick = function() {
+divEl.onclick = function () {
   console.log('div元素被點擊')
 }
 ```
@@ -126,8 +118,6 @@ divEl.addEventListener('click', () => {
   console.log('div元素被點擊')
 })
 ```
-
-
 
 ## 事件冒泡和事件捕獲
 
@@ -153,18 +143,28 @@ document.body.addEventListener('click', () => {
 })
 
 // 事件捕獲
-spanEl.addEventListener('click', () => {
-  console.log('事件捕獲，span 元素被點擊了')
-}, true)
-divEl.addEventListener('click', () => {
-  console.log('事件捕獲，div 元素被點擊了')
-}, true)
-document.body.addEventListener('click', () => {
-  console.log('事件捕獲，body 元素被點擊了')
-}, true)
+spanEl.addEventListener(
+  'click',
+  () => {
+    console.log('事件捕獲，span 元素被點擊了')
+  },
+  true
+)
+divEl.addEventListener(
+  'click',
+  () => {
+    console.log('事件捕獲，div 元素被點擊了')
+  },
+  true
+)
+document.body.addEventListener(
+  'click',
+  () => {
+    console.log('事件捕獲，body 元素被點擊了')
+  },
+  true
+)
 ```
-
-
 
 ## 事件物件的屬性和方法
 

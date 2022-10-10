@@ -4,7 +4,7 @@
 
 ```js
 function sum(num1, num2) {
-  if(typeof num1 !== "number" || typeof num2 !== 'number') {
+  if (typeof num1 !== 'number' || typeof num2 !== 'number') {
     throw 'parmas must be number'
   }
   return num1 + num2
@@ -12,8 +12,6 @@ function sum(num1, num2) {
 
 console.log(sum({ name: 'Louis' }))
 ```
-
-
 
 ## 錯誤類型
 
@@ -53,8 +51,6 @@ Error 也有一些子類：
 - SyntaxError：解析語法錯誤時使用的錯誤類型
 - TypeError：出現類型錯誤時使用的錯誤類型
 
-
-
 ## 捕獲異常
 
 在函數執行中如果拋出了異常，程序是會中斷執行的，不過在中斷之前，異常是會一層層往上拋出的，如果不希望中斷執行可以對可能出現錯誤的程式碼進行錯誤捕獲：
@@ -70,7 +66,6 @@ function bar() {
   } catch (error) {
     console.log(error.message)
   }
-  
 }
 // 異常是會一層層往上拋出的
 bar()
@@ -107,14 +102,12 @@ function foo() {
 function baz() {
   try {
     foo()
-  } catch  {
+  } catch {
     console.log('error')
   } finally {
     console.log('finally~')
   }
-  
 }
 
 baz()
 ```
-

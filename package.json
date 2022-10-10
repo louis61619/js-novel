@@ -22,7 +22,8 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "commit": "cz"
+    "commit": "cz",
+    "prettier": "prettier --write ."
   },
   "config": {
     "commitizen": {

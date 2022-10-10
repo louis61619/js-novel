@@ -2,8 +2,6 @@
 
 在 ES5 中聲明變數都是使用 var 關鍵字，從 ES6 開始新增了兩個關鍵字可以聲明變數：let、const。
 
-
-
 ## 基本使用
 
 ```js
@@ -27,8 +25,6 @@ obj.foo = 'bar'
 
 相對於 var ， let 和 const 所定義過的變數名稱都不可以重複聲明。
 
-
-
 ## 作用域提升
 
 var 有作用域提升，那 let 有作用域提升嗎？運行以下程式碼：
@@ -42,8 +38,6 @@ let foo = 'foo'
 
 由於作用域提升沒有準確的定義，所以從不可被訪問的角度來說，可以說 let 和 const 是沒有作用域提升的。
 
-
-
 ## let、const 和 window
 
 在全局通過 var 聲明一個變數時，這個變數會作為屬性放到 window 物件中：
@@ -54,8 +48,6 @@ console.log(window.foo)
 ```
 
 而 let 和 const 作為新的語法被 JS 引擎分開處理，放到一張獨立的哈希表 （Hash map） 中。
-
-
 
 ## 塊極作用域
 
@@ -87,39 +79,37 @@ var bar = 'a'
 switch (bar) {
   case 'a':
     let foo = 'foo'
-    break;
+    break
 
   default:
-    break;
+    break
 }
 console.log(foo) // foo is not defined
 ```
 
 ```js
-for(let i = 0; i < 10; i ++) {
-  console.log("Hello World" + i)
+for (let i = 0; i < 10; i++) {
+  console.log('Hello World' + i)
 }
 
 console.log(i) // i is not defined
 ```
 
-
-
 ### 塊極作用域的用處
 
 ```js
-for(var i = 0; i < 10; i ++) {
+for (var i = 0; i < 10; i++) {
   setTimeout(() => {
     console.log(i)
   })
 }
 ```
 
-執行以上程式碼會得到十個10的打印，因為 var 沒有塊極作用域，所以變數是保存在全局中，要想要分別打印出每個 i 的值，在 ES5 中可以使用函數作用域。
+執行以上程式碼會得到十個 10 的打印，因為 var 沒有塊極作用域，所以變數是保存在全局中，要想要分別打印出每個 i 的值，在 ES5 中可以使用函數作用域。
 
 ```js
-for(var i = 0; i < 10; i ++) {
-  (function(n) {
+for (var i = 0; i < 10; i++) {
+  ;(function (n) {
     setTimeout(() => {
       console.log(n)
     })
@@ -130,14 +120,12 @@ for(var i = 0; i < 10; i ++) {
 有了 es6 就不用寫這麼複雜了：
 
 ```js
-for(let i = 0; i < 10; i ++) {
+for (let i = 0; i < 10; i++) {
   setTimeout(() => {
     console.log(n)
   })
 }
 ```
-
-
 
 ### 暫時性死區
 
@@ -146,12 +134,12 @@ for(let i = 0; i < 10; i ++) {
 類似以下這種程式碼，只要有使用到 let，都是不能被訪問的：
 
 ```js
-var foo = "foo"
+var foo = 'foo'
 
-if(true) {
+if (true) {
   console.log(foo)
 
-  let foo = "abg"
+  let foo = 'abg'
 }
 ```
 
@@ -161,10 +149,8 @@ if(true) {
 ReferenceError: Cannot access 'foo' before initialization
 ```
 
-
-
 ## var、const、let 的選擇
 
-var 的特殊性：比如作用域提升、window全局物件屬性、沒有塊極作用域等，這些都是歷史遺留的問題，是在 JavaScript 設計之初的一些缺陷，所以在實際業務中還是以最新的標準來編寫程式碼，也就是不再用 var 來定義變數。
+var 的特殊性：比如作用域提升、window 全局物件屬性、沒有塊極作用域等，這些都是歷史遺留的問題，是在 JavaScript 設計之初的一些缺陷，所以在實際業務中還是以最新的標準來編寫程式碼，也就是不再用 var 來定義變數。
 
 ES6 中的 const 可以保證數據的安全性，所以在開發中優先使用，只有在明確該變數會在後續進行修改時再使用 let。

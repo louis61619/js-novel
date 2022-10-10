@@ -1,21 +1,19 @@
 # 物件和原型
 
-- JavaSciprt中的物件被設計成一組**屬性的無序集合**，類似一個哈希表，由key和value組成。
+- JavaSciprt 中的物件被設計成一組**屬性的無序集合**，類似一個哈希表，由 key 和 value 組成。
 
-- Key是一個標識符名稱，value可以是任意類型，也可以是**物件或者函數類型**
+- Key 是一個標識符名稱，value 可以是任意類型，也可以是**物件或者函數類型**
 
 - 如果值是一個函數通常稱之為**方法**
 
-  
-
 ## 如何創建物件
 
-透過new關鍵字：
+透過 new 關鍵字：
 
 ```js
 var obj = new Object()
 
-obj.name = "Louis"
+obj.name = 'Louis'
 obj.age = 19
 ```
 
@@ -27,8 +25,6 @@ var obj = {
   age: 19
 }
 ```
-
-
 
 ## 如何操作物件
 
@@ -50,21 +46,19 @@ obj.name = 'XXX'
 delete obj.name
 ```
 
-
-
 ## 物件本身的方法
 
 除了直接操作外，物件本身也提供了一些方法調用，以下對常見的方法進行介紹：
 
 ### Object.defineProperty
 
-使用Object.defineProperty對物件屬性進行更加精確的操作，Object.defineProperty允許傳入三個參數：
+使用 Object.defineProperty 對物件屬性進行更加精確的操作，Object.defineProperty 允許傳入三個參數：
 
 - obj： 要定義屬性的物件。
 - prop：要被定義或修改的屬性名字。
 - descriptor：要定義或修改物件敘述內容。
 
-descriptor為物件的屬性描述器，屬性描述器（Property descriptor）主要有兩種：資料描述器（data descriptor）與訪問描述器（accessor descriptor），共有以下幾個屬性：
+descriptor 為物件的屬性描述器，屬性描述器（Property descriptor）主要有兩種：資料描述器（data descriptor）與訪問描述器（accessor descriptor），共有以下幾個屬性：
 
 - configurable
 
@@ -102,7 +96,7 @@ var obj = {
   age: 26
 }
 
-Object.defineProperty(obj, "height", {
+Object.defineProperty(obj, 'height', {
   configurable: true,
   enumerable: true,
   writable: true,
@@ -121,19 +115,18 @@ var obj = {
   _height: 1.75
 }
 
-Object.defineProperty(obj, "height", {
+Object.defineProperty(obj, 'height', {
   configurable: true,
   enumerable: true,
-  get: function() {
+  get: function () {
     return this._height
   },
-  set: function(value) {
+  set: function (value) {
     this._height = value
   }
 })
 
 console.log(obj.height)
-
 ```
 
 訪問描述器也可直接在物件中進行定義：
@@ -152,8 +145,6 @@ var obj = {
 }
 ```
 
-
-
 ### Object.defineProperties
 
 透過 Object.defineProperties 可以一次定義多個屬性：
@@ -168,22 +159,20 @@ Object.defineProperties(obj, {
     configurable: true,
     enumerable: true,
     writable: true,
-    value: "Louis"
+    value: 'Louis'
   },
   age: {
     configurable: false,
     enumerable: false,
-    get: function(){
+    get: function () {
       return this._age
     },
-    set: function(value) {
+    set: function (value) {
       this._age = value
     }
   }
 })
 ```
-
-
 
 ### 其他的方法
 
@@ -192,8 +181,6 @@ Object.defineProperties(obj, {
 - Object.preventExtensions：禁止物件添加新的屬性。
 - Object.seal：禁止對物件配置或刪除屬性。
 - Object.freeze： 禁止對物件中屬性的值進行修改
-
-
 
 ## 創建物件的方案
 
@@ -206,17 +193,15 @@ var p1 = {
   name: '張三',
   age: 18,
   height: 1.88,
-  address: "台北",
-  eating: function() {
+  address: '台北',
+  eating: function () {
     console.log(this.name + '在吃東西')
   },
-  running: function() {
+  running: function () {
     console.log(this.name + '在跑步')
   }
 }
 ```
-
-
 
 ### 工廠函數
 
@@ -229,10 +214,10 @@ function createPerson(name, age, height, address) {
     age,
     height,
     address,
-    eating: function() {
+    eating: function () {
       console.log(this.name + '在吃東西')
     },
-    running: function() {
+    running: function () {
       console.log(this.name + '在跑步')
     }
   }
@@ -245,8 +230,6 @@ var p3 = createPerson('王五', 18, 1.88, '桃園')
 ```
 
 以上透過 createPerson 返回的物件仍然是以字面量的形式存在，相對來說使用構造函數去定義物件是一個更好的方法。
-
-
 
 ### 構造函數
 
@@ -267,21 +250,19 @@ function Person(name, age, height, address) {
   this.age = age
   this.height = height
   this.address = address
-  this.eating = function() {
+  ;(this.eating = function () {
     console.log(this.name + '在吃東西')
-  },
-  this.running = function() {
-    console.log(this.name + '在跑步')
-  }
+  }),
+    (this.running = function () {
+      console.log(this.name + '在跑步')
+    })
 }
 
-var p1 = new Person("Louis", 25, 1.75, "新北市")
-var p2 = new Person("Jenny", 20, 1.7, "台北市")
+var p1 = new Person('Louis', 25, 1.75, '新北市')
+var p2 = new Person('Jenny', 20, 1.7, '台北市')
 ```
 
 不過仍然有缺點，就是在每次 new 創建新的物件時，物件是完全新建的，類似於 eating 或是 running 等函數其實沒必要創建新的佔據更多的內存空間，這時候就可以利用函數的 prototype。
-
-
 
 ### 原型（ Prototype ）
 
@@ -296,8 +277,7 @@ var p2 = new Person("Jenny", 20, 1.7, "台北市")
 如果執行這一段程式碼：
 
 ```js
-function foo() {
-}
+function foo() {}
 
 // 函數有隱式原型
 console.log(foo.__proto__)
@@ -339,11 +319,11 @@ console.log(f2.name)
 
 ```js
 foo.prototype = {
-  name: "Louis",
+  name: 'Louis'
 }
 
 // 可以通過 Object.defineProperty 方式添加 constructor
-Object.defineProperty(foo.prototype, "constructor", {
+Object.defineProperty(foo.prototype, 'constructor', {
   enumerable: false,
   configurable: true,
   writable: true,
@@ -361,16 +341,14 @@ function Person(name, age, height, address) {
   this.address = address
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + '在吃東西')
 }
 
-Person.prototype.running = function() {
+Person.prototype.running = function () {
   console.log(this.name + '在跑步')
 }
 
-
-var p1 = new Person("Louis", 25, 1.75, "新北市")
-var p2 = new Person("Jenny", 20, 1.7, "台北市")
+var p1 = new Person('Louis', 25, 1.75, '新北市')
+var p2 = new Person('Jenny', 20, 1.7, '台北市')
 ```
-

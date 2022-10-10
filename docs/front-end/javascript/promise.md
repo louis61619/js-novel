@@ -17,16 +17,20 @@ function requestData(params, successCallback, failtureCallback) {
   })
 }
 
-requestData('google', (res) => {
-  console.log(res)
-}, (err) => {
-  console.log(err)
-})
+requestData(
+  'google',
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  }
+)
 ```
 
 callback 方式的弊端：
 
-- 需要自己設計好requestData
+- 需要自己設計好 requestData
 - 如果使用第三方庫，需要看文檔或是源代碼才能了解如何使用
 
 ES6 就實現了一個更好的方案，Promise。
@@ -74,11 +78,14 @@ function requestData(params) {
 const promise = requestData('google')
 
 // then 中可以同時處理 resolve 和 reject
-promise.then(res => {
-  console.log(res)
-}, err => {
-  console.log(err)
-})
+promise.then(
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  }
+)
 ```
 
 Promise 可以被分為幾個階段，每個階段一但被確立就是不可更改的：
@@ -87,34 +94,38 @@ Promise 可以被分為幾個階段，每個階段一但被確立就是不可更
 new Promise((resolve, reject) => {
   // pending 階段
   resolve()
-}).then(res => {
-  // fulfilled 階段
-  console.log(res)
-}, err => {
-  // rejected 階段
-  console.log(err)
-})
+}).then(
+  (res) => {
+    // fulfilled 階段
+    console.log(res)
+  },
+  (err) => {
+    // rejected 階段
+    console.log(err)
+  }
+)
 ```
 
-## resolve參數
+## resolve 參數
 
 resolve 參數有兩個例外情況。
 
 當傳入 Promise 物件作為 resolve 參數時，那麼當前 Promise 的狀態會交由傳入的 Promise 來決定：
 
 ```js
-const newPromise = new Promise((resolve, reject) => {
-
-})
+const newPromise = new Promise((resolve, reject) => {})
 
 new Promise((resolve, reject) => {
   resolve(newPromise)
   // newPromise沒調用resolve, reject所以不會往下執行
-}).then(res => {
-  console.log(res)
-}, err => {
-  console.log(err)
-})
+}).then(
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    console.log(err)
+  }
+)
 ```
 
 當傳入一個物件，並且該物件有實現 then 方法時，那麼會執行 then 方法，並且由該方法決定後續狀態：
@@ -128,12 +139,15 @@ const obj = {
 
 new Promise((resolve, reject) => {
   resolve(obj)
-}).then(res => {
-  console.log(res)
-}, err => {
-  // 打印 error
-  console.log(err)
-})
+}).then(
+  (res) => {
+    console.log(res)
+  },
+  (err) => {
+    // 打印 error
+    console.log(err)
+  }
+)
 ```
 
 ## Promise 的實例方法
@@ -148,15 +162,15 @@ const promise = new Promise((resolve, reject) => {
 })
 
 // 當 resolve 被調用時，所有 then 方法都會被調用
-promise.then(res => {
+promise.then((res) => {
   console.log(res)
 })
 
-promise.then(res => {
+promise.then((res) => {
   console.log(res)
 })
 
-promise.then(res => {
+promise.then((res) => {
   console.log(res)
 })
 ```
@@ -169,11 +183,13 @@ const promise = new Promise((resolve, reject) => {
 })
 
 // 當返回一個普通值，那麼這個值會作為一個新的 Promis 的 resolve 值
-promise.then(res => {
-  return '123'
-}).then(res => {
-  console.log(res)
-})
+promise
+  .then((res) => {
+    return '123'
+  })
+  .then((res) => {
+    console.log(res)
+  })
 ```
 
 ### catch
@@ -186,7 +202,7 @@ const promise = new Promise((resolve, reject) => {
   // reject('1111')
 })
 
-promise.catch(err => {
+promise.catch((err) => {
   console.log('---')
 })
 ```
@@ -199,13 +215,15 @@ const promise = new Promise((resolve, reject) => {
   // reject('1111')
 })
 
-promise.then(res => {
-  return new Promise((resolve, reject) => {
-    reject('error')
+promise
+  .then((res) => {
+    return new Promise((resolve, reject) => {
+      reject('error')
+    })
   })
-}).catch(err => {
-  console.log(err)
-})
+  .catch((err) => {
+    console.log(err)
+  })
 ```
 
 catch 的返回值也是一個 Promise：
@@ -216,14 +234,15 @@ const promise = new Promise((resolve, reject) => {
   // reject('1111')
 })
 
-promise.then(res => {
-
-}).catch(err => {
-  return '-----'
-}).then(res => {
-  // 輸出：-----
-  console.log(res)
-})
+promise
+  .then((res) => {})
+  .catch((err) => {
+    return '-----'
+  })
+  .then((res) => {
+    // 輸出：-----
+    console.log(res)
+  })
 ```
 
 ### finally
@@ -235,13 +254,16 @@ const promise = new Promise((resolve, reject) => {
   resolve('success')
 })
 
-promise.then(res => {
-  console.log(res)
-}).catch(err => {
-  console.log(err)
-}).finally(() => {
-  console.log('finally')
-})
+promise
+  .then((res) => {
+    console.log(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => {
+    console.log('finally')
+  })
 ```
 
 ## Promise 的類方法
@@ -251,8 +273,8 @@ promise.then(res => {
 可以將一個值轉換為 Promise 物件，並且回調 resolve 函數：
 
 ```js
-const objPromise = Promise.resolve({name: 'Louis'})
-objPromise.then(res => {
+const objPromise = Promise.resolve({ name: 'Louis' })
+objPromise.then((res) => {
   console.log(res)
 })
 ```
@@ -261,9 +283,9 @@ objPromise.then(res => {
 
 ```js
 const objPromise = new Promise((resolve, reject) => {
-  resolve({name: 'Louis'})
+  resolve({ name: 'Louis' })
 })
-objPromise.then(res => {
+objPromise.then((res) => {
   console.log(res)
 })
 ```
@@ -273,8 +295,8 @@ objPromise.then(res => {
 可以將一個值轉換為 Promise 物件，並且回調 reject 函數：
 
 ```js
-const objPromise = Promise.reject({name: 'Louis'})
-objPromise.catch(err => {
+const objPromise = Promise.reject({ name: 'Louis' })
+objPromise.catch((err) => {
   console.log(err)
 })
 ```
@@ -283,9 +305,9 @@ objPromise.catch(err => {
 
 ```js
 const objPromise2 = new Promise((resolve, reject) => {
-  reject({name: 'Louis'})
+  reject({ name: 'Louis' })
 })
-objPromise.catch(err => {
+objPromise.catch((err) => {
   console.log(err)
 })
 ```
@@ -315,11 +337,13 @@ const p3 = new Promise((resolve, reject) => {
 
 // 結果是依需返回
 // 只要有一個 promise 變成 reject ，那麼會直接調用 catch
-Promise.all([p1, p2, p3, '---']).then(([res1, res2, res3, res4]) => {
-  console.log(res1, res2, res3, res4)
-}).catch(err => {
-  console.log(err)
-})
+Promise.all([p1, p2, p3, '---'])
+  .then(([res1, res2, res3, res4]) => {
+    console.log(res1, res2, res3, res4)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 ```
 
 ### Promise.allSettled
@@ -353,7 +377,7 @@ Promise.allSettled([p1, p2, p3, '---']).then(([res1, res2, res3, res4]) => {
 最終打印出來的會是一個數組，返回各自的結果：
 
 ```js
-[
+;[
   { status: 'fulfilled', value: '1111' },
   { status: 'fulfilled', value: '2222' },
   { status: 'rejected', reason: '333' },
@@ -385,14 +409,14 @@ const p3 = new Promise((resolve, reject) => {
 })
 
 Promise.race([p1, p2, p3]).then((res) => {
-    // 2222
+  // 2222
   console.log(res)
 })
 ```
 
 ### Promise.any
 
-ES12中新增的方法，只要有一個 Promise 返回的結果是成功的，就調用 then 方法，如果所有 Promise 都失敗，則調用 catch 方法，從 callback 中參數 errors 屬性能獲取 reject 返回值的陣列集合：
+ES12 中新增的方法，只要有一個 Promise 返回的結果是成功的，就調用 then 方法，如果所有 Promise 都失敗，則調用 catch 方法，從 callback 中參數 errors 屬性能獲取 reject 返回值的陣列集合：
 
 ```js
 const p1 = new Promise((resolve, reject) => {
@@ -413,13 +437,15 @@ const p3 = new Promise((resolve, reject) => {
   }, 700)
 })
 
-Promise.race([p1, p2, p3]).then((res) => {
+Promise.race([p1, p2, p3])
+  .then((res) => {
     // 1111
-  console.log(res)
-}).catch(err => {
-  // err: [AggregateError: All promises were rejected]
-  console.log(err.errors)
-})
+    console.log(res)
+  })
+  .catch((err) => {
+    // err: [AggregateError: All promises were rejected]
+    console.log(err.errors)
+  })
 ```
 
 ## Promise 如何實現
@@ -431,12 +457,9 @@ Promise.race([p1, p2, p3]).then((res) => {
 ```js
 class MyPromise {
   constructor(executor) {
+    const resolve = () => {}
 
-    const resolve = () => {
-    }
-
-    const reject = () => {
-    }
+    const reject = () => {}
 
     executor(resolve, reject)
   }
@@ -455,14 +478,14 @@ class MyPromise {
     this.stauts = PROMISE_STATUS_PENDING
 
     const resolve = () => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         this.stauts = PROMISE_STATUS_FULFILLED
         console.log('resolve 被調用')
       }
     }
 
     const reject = () => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         this.stauts = PROMISE_STATUS_REJECTED
         console.log('reject 被調用')
       }
@@ -489,13 +512,13 @@ class MyPromise {
     this.onRejectedFns = []
 
     const resolve = (value) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         // 使用微任務進行延遲以添加 then 的回調函數
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_FULFILLED
           this.value = value
-          this.onFulfilledFns.forEach(fn => {
+          this.onFulfilledFns.forEach((fn) => {
             fn(this.value)
           })
         })
@@ -503,12 +526,12 @@ class MyPromise {
     }
 
     const reject = (reason) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_REJECTED
           this.reason = reason
-          this.onRejectedFns.forEach(fn => {
+          this.onRejectedFns.forEach((fn) => {
             fn(this.reason)
           })
         })
@@ -592,13 +615,13 @@ class MyPromise {
     this.onRejectedFns = []
 
     const resolve = (value) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         // 使用微任務進行延遲以添加 then 的回調函數
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_FULFILLED
           this.value = value
-          this.onFulfilledFns.forEach(fn => {
+          this.onFulfilledFns.forEach((fn) => {
             fn(this.value)
           })
         })
@@ -606,12 +629,12 @@ class MyPromise {
     }
 
     const reject = (reason) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_REJECTED
           this.reason = reason
-          this.onRejectedFns.forEach(fn => {
+          this.onRejectedFns.forEach((fn) => {
             fn(this.reason)
           })
         })
@@ -628,10 +651,12 @@ class MyPromise {
 
   then(onFulfilled, onRejected) {
     // 如果沒有 onRejected 給予默認函數
-    const defaultOnRejected = err => {throw err}
+    const defaultOnRejected = (err) => {
+      throw err
+    }
     onRejected = onRejected || defaultOnRejected
 
-    const defaultOnFulfilled = value => value
+    const defaultOnFulfilled = (value) => value
     onFulfilled = onFulfilled || defaultOnFulfilled
 
     return new MyPromise((resolve, reject) => {
@@ -645,12 +670,14 @@ class MyPromise {
 
       // 將成功和失敗的回調放到陣列中
       if (this.stauts === PROMISE_STATUS_PENDING) {
-        if (onFulfilled) this.onFulfilledFns.push(() => {
-          execFunctionWithCatchError(onFulfilled, this.value, resolve, reject)
-        })
-        if (onRejected) this.onRejectedFns.push(() => {
-          execFunctionWithCatchError(onRejected, this.reason, resolve, reject)
-        })
+        if (onFulfilled)
+          this.onFulfilledFns.push(() => {
+            execFunctionWithCatchError(onFulfilled, this.value, resolve, reject)
+          })
+        if (onRejected)
+          this.onRejectedFns.push(() => {
+            execFunctionWithCatchError(onRejected, this.reason, resolve, reject)
+          })
       }
     })
   }
@@ -660,11 +687,14 @@ class MyPromise {
   }
 
   finally(onFinally) {
-    this.then(() => {
-      onFinally()
-    }, () => {
-      onFinally()
-    })
+    this.then(
+      () => {
+        onFinally()
+      },
+      () => {
+        onFinally()
+      }
+    )
   }
 }
 ```
@@ -694,13 +724,13 @@ class MyPromise {
     this.onRejectedFns = []
 
     const resolve = (value) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         // 使用微任務進行延遲以添加 then 的回調函數
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_FULFILLED
           this.value = value
-          this.onFulfilledFns.forEach(fn => {
+          this.onFulfilledFns.forEach((fn) => {
             fn(this.value)
           })
         })
@@ -708,12 +738,12 @@ class MyPromise {
     }
 
     const reject = (reason) => {
-      if(this.stauts === PROMISE_STATUS_PENDING) {
+      if (this.stauts === PROMISE_STATUS_PENDING) {
         queueMicrotask(() => {
           if (this.stauts !== PROMISE_STATUS_PENDING) return
           this.stauts = PROMISE_STATUS_REJECTED
           this.reason = reason
-          this.onRejectedFns.forEach(fn => {
+          this.onRejectedFns.forEach((fn) => {
             fn(this.reason)
           })
         })
@@ -730,10 +760,12 @@ class MyPromise {
 
   then(onFulfilled, onRejected) {
     // 如果沒有 onRejected 給予默認函數
-    const defaultOnRejected = err => {throw err}
+    const defaultOnRejected = (err) => {
+      throw err
+    }
     onRejected = onRejected || defaultOnRejected
 
-    const defaultOnFulfilled = value => value
+    const defaultOnFulfilled = (value) => value
     onFulfilled = onFulfilled || defaultOnFulfilled
 
     return new MyPromise((resolve, reject) => {
@@ -747,12 +779,14 @@ class MyPromise {
 
       // 將成功和失敗的回調放到陣列中
       if (this.stauts === PROMISE_STATUS_PENDING) {
-        if (onFulfilled) this.onFulfilledFns.push(() => {
-          execFunctionWithCatchError(onFulfilled, this.value, resolve, reject)
-        })
-        if (onRejected) this.onRejectedFns.push(() => {
-          execFunctionWithCatchError(onRejected, this.reason, resolve, reject)
-        })
+        if (onFulfilled)
+          this.onFulfilledFns.push(() => {
+            execFunctionWithCatchError(onFulfilled, this.value, resolve, reject)
+          })
+        if (onRejected)
+          this.onRejectedFns.push(() => {
+            execFunctionWithCatchError(onRejected, this.reason, resolve, reject)
+          })
       }
     })
   }
@@ -762,15 +796,18 @@ class MyPromise {
   }
 
   finally(onFinally) {
-    this.then(() => {
-      onFinally()
-    }, () => {
-      onFinally()
-    })
+    this.then(
+      () => {
+        onFinally()
+      },
+      () => {
+        onFinally()
+      }
+    )
   }
 
   static resolve(value) {
-    return new MyPromise(resolve => resolve(value))
+    return new MyPromise((resolve) => resolve(value))
   }
 
   static reject(reason) {
@@ -780,15 +817,18 @@ class MyPromise {
   static all(promises) {
     return new MyPromise((resolve, reject) => {
       const values = []
-      promises.forEach(promise => {
-        promise.then(res => {
-          values.push(res)
-          if (values.length === promises.length) {
-            resolve(values)
+      promises.forEach((promise) => {
+        promise.then(
+          (res) => {
+            values.push(res)
+            if (values.length === promises.length) {
+              resolve(values)
+            }
+          },
+          (err) => {
+            reject(err)
           }
-        }, err => {
-          reject(err)
-        })
+        )
       })
     })
   }
@@ -796,25 +836,28 @@ class MyPromise {
   static allSettiled(promises) {
     return new MyPromise((resolve, reject) => {
       const results = []
-      promises.forEach(promise => {
-        promise.then(res => {
-          results.push({ status: PROMISE_STATUS_FULFILLED, value: res })
-          if (results.length === promises.length) {
-            resolve(results)
+      promises.forEach((promise) => {
+        promise.then(
+          (res) => {
+            results.push({ status: PROMISE_STATUS_FULFILLED, value: res })
+            if (results.length === promises.length) {
+              resolve(results)
+            }
+          },
+          (err) => {
+            results.push({ status: PROMISE_STATUS_REJECTED, reason: err })
+            if (results.length === promises.length) {
+              resolve(results)
+            }
           }
-        }, err => {
-          results.push({ status: PROMISE_STATUS_REJECTED, reason: err })
-          if (results.length === promises.length) {
-            resolve(results)
-          }
-        })
+        )
       })
     })
   }
 
   static race(promises) {
     return new MyPromise((resolve, reject) => {
-      promises.forEach(promise => {
+      promises.forEach((promise) => {
         promise.then(resolve, reject)
       })
     })
@@ -825,10 +868,10 @@ class MyPromise {
     // reject 所有都失敗
     const reasons = []
     return new MyPromise((resolve, reject) => {
-      promises.forEach(promise => {
-        promise.then(resolve, err => {
+      promises.forEach((promise) => {
+        promise.then(resolve, (err) => {
           reasons.push(err)
-          if(reasons.length === promises.length) {
+          if (reasons.length === promises.length) {
             reject(new AggregateError(reasons))
           }
         })
@@ -837,4 +880,3 @@ class MyPromise {
   }
 }
 ```
-

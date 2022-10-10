@@ -7,14 +7,12 @@
 - 閉包在實現上是一個結構體，它儲存了一個函式（通常是其入口位址）和一個關聯的環境（相當於一個符號尋找表）;
 - 閉包跟函式最大的不同在於，當捕捉閉包的時候，它的自由變數會在捕捉時被確定，這樣即便脫離了捕捉時的上下文，它也能照常執行。
 
-
-
 以下是一段嚴格意義上的閉包：
 
 ```js
 function foo() {
-  var name ="louis"
-  function bar(){
+  var name = 'louis'
+  function bar() {
     console.log(name)
   }
   return bar
@@ -34,8 +32,8 @@ fn()
 
 ```js
 function foo() {
-  var name ="louis"
-  function bar(){
+  var name = 'louis'
+  function bar() {
     console.log(name)
   }
   return bar
@@ -47,4 +45,3 @@ fn()
 // 避免產生內存洩漏
 fn = null
 ```
-

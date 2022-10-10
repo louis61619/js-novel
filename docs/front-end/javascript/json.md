@@ -1,12 +1,10 @@
 # JSON
 
-JSON 是一種數據格式，目前最長用在服務器和客戶端之間的資料傳輸，全稱為 JavaScript Object Notation（JavaScript物件符號），已經有相當多的程式語言都實現了將 JSON格式轉換成對應模型的方法，使用場景通常為：
+JSON 是一種數據格式，目前最長用在服務器和客戶端之間的資料傳輸，全稱為 JavaScript Object Notation（JavaScript 物件符號），已經有相當多的程式語言都實現了將 JSON 格式轉換成對應模型的方法，使用場景通常為：
 
 - 網路數據傳輸
 - 項目配置文件
 - 非關係型資料庫（NoSQL）
-
-
 
 ## 基本使用
 
@@ -15,8 +13,6 @@ JSON 支持三種類型的值：
 - 簡單值：Number、String、Boolean、null
 - 物件值：由 key 和 value 組成，key 為 String 類型並且必須添加雙引號
 - 陣列值：陣列的元素可以是簡單值、物件值、陣列值
-
-
 
 ## JSON.stringify
 
@@ -40,7 +36,6 @@ const obj = {
   name: 'Louis',
   age: 26
 }
-
 
 const jsonString2 = JSON.stringify(obj, ['name'])
 // {"name":"Louis"}
@@ -74,7 +69,7 @@ const obj = {
 }
 
 // 第三個參數 space
-const jsonString4 = JSON.stringify(obj, undefined, " ")
+const jsonString4 = JSON.stringify(obj, undefined, ' ')
 // {
 //   "name": "Louis",
 //   "age": 26
@@ -89,7 +84,7 @@ const obj = {
   name: 'Louis',
   age: 26,
   toJSON() {
-    return "111"
+    return '111'
   }
 }
 
@@ -97,8 +92,6 @@ const jsonString1 = JSON.stringify(obj)
 // "111"
 console.log(jsonString1)
 ```
-
-
 
 ## JSON.parse
 
@@ -108,7 +101,7 @@ JSON 物件除了 stringify 方法，還有 parse 方法能對 JSON 字串進行
 const JSONString = '{"name":"Louis","age":27}'
 
 const info = JSON.parse(JSONString, (key, value) => {
-  if(key === 'age') {
+  if (key === 'age') {
     return value + 1
   }
   return value
@@ -117,8 +110,6 @@ const info = JSON.parse(JSONString, (key, value) => {
 // { name: 'Louis', age: 28 }
 console.log(info)
 ```
-
-
 
 ## Deep copy
 
@@ -139,7 +130,7 @@ const obj = {
 const info = { ...obj }
 ```
 
- info 中的 friends 和 obj 中的 freinds 是指向同一個記憶體地址， 如果修改掉 info 中的 friends 會影響掉 obj 中的 friends 屬性。
+info 中的 friends 和 obj 中的 freinds 是指向同一個記憶體地址， 如果修改掉 info 中的 friends 會影響掉 obj 中的 friends 屬性。
 
 透過 JSON.stringify 和 JSON.parse 能夠進行物件的深拷貝，也就是會讓 friends 屬性指向不同的記憶體地址：
 
@@ -161,4 +152,3 @@ const info3 = JSON.parse(jsonString)
 ```
 
 不過以上的方法有一個最大的缺點，就是 JSON 這種數據格式中沒有函數，如果物件中有函數作為屬性會在轉化的過程中被刪去。
-

@@ -20,8 +20,6 @@ Window 中除了包含大量的屬性和方法，也繼承了 EventTarget 的事
 
 MDN 文檔中有對應的細節： https://developer.mozilla.org/zh-TW/docs/Web/API/Window
 
-
-
 ## EventTarget
 
 透過原型鏈可以查看到 window 所繼承的類：
@@ -44,7 +42,7 @@ addEventListener，監聽事件：
 const clickHandler = () => {
   console.log('window 發生點擊')
 }
-window.addEventListener("click", clickHandler)
+window.addEventListener('click', clickHandler)
 ```
 
 removeEventListener，取消監聽事件：
@@ -53,21 +51,19 @@ removeEventListener，取消監聽事件：
 const clickHandler = () => {
   console.log('window 發生點擊')
 }
-window.addEventListener("click", clickHandler)
-window.removeEventListener("click", clickHandler)
+window.addEventListener('click', clickHandler)
+window.removeEventListener('click', clickHandler)
 ```
 
 dispatchEvent，自訂事件派發：
 
 ```js
-window.addEventListener("myEvent", () => {
-  console.log("myEvent~")
+window.addEventListener('myEvent', () => {
+  console.log('myEvent~')
 })
 
-window.dispatchEvent(new Event("myEvent"))
+window.dispatchEvent(new Event('myEvent'))
 ```
-
-
 
 ## Location
 
@@ -106,8 +102,6 @@ search: "?q=bbb"
 - 跳轉頁面，不留下當前頁面的紀錄：location.replace("https://www.google.com")
 
 - 重新加載頁面：location.reload()
-
-
 
 ## history
 

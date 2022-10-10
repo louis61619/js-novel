@@ -6,8 +6,6 @@ localStorage：本地儲存，提供永久性存儲，在關閉網頁後重新�
 
 sessionStorage：會話儲存，提供一次性儲存，在關閉視窗後內容會被清除。
 
-
-
 ## Storage 基本操作
 
 設置值：
@@ -31,7 +29,7 @@ localStorage.getItem('name')
 循環遍歷：
 
 ```js
-for(let i = 0; i < localStorage.length; i++) {
+for (let i = 0; i < localStorage.length; i++) {
   const key = localStorage.key(i)
   console.log(localStorage.getItem(key))
 }
@@ -58,14 +56,14 @@ class MyCache {
   }
 
   setItem(key, value) {
-    if(value) {
+    if (value) {
       this.storage.setItem(key, JSON.stringify(value))
     }
   }
 
   getItem(key, value) {
     let value = this.storage.getItem(key)
-    if(value) {
+    if (value) {
       value = JSON.parse(value)
       return value
     }
@@ -83,4 +81,3 @@ class MyCache {
 export const LocalCache = new MyCache()
 export const SessionCache = new MyCache(false)
 ```
-

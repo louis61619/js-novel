@@ -1,14 +1,12 @@
 # ES6 和 Class
 
 ```js
-class Person {
-
-}
+class Person {}
 ```
 
 本質上 Class 關鍵字，實際上就是一個構造函數的語法糖。
 
-在 new  一個 class 之後，我們能夠得到和 new 一個構造函數相同的結果：
+在 new 一個 class 之後，我們能夠得到和 new 一個構造函數相同的結果：
 
 ```js
 var p = new Person()
@@ -17,15 +15,13 @@ console.log(p.__proto__ === Person.prototype)
 console.log(Person === p.__proto__.constructor)
 ```
 
-也就是說 p 的原型同樣也是指向 Person 的 prototype，p的原型上也存在一個 constructor 指向 class 本身，所以 class 的調用也是會走下這四步：
+也就是說 p 的原型同樣也是指向 Person 的 prototype，p 的原型上也存在一個 constructor 指向 class 本身，所以 class 的調用也是會走下這四步：
 
 1. 在記憶體中創建一個空物件 {}
 2. 將構造函數的 prototype 賦值給該物件的 `__proto__`
 
-3. 將該物件賦值 this 
+3. 將該物件賦值 this
 4. 如果沒有返回值則返回 this
-
-
 
 ## 方法的定義
 
@@ -42,15 +38,12 @@ class Person {
 }
 ```
 
-
-
 ### 實例方法
 
 通過 new 關鍵字調用 class 返回的物件稱為實例，可以在 class 中加入自訂函數以對實例方法進行定義：
 
 ```js
 class Person {
-
   constructor(name, age) {
     this.name = name
     this.age = age
@@ -61,7 +54,7 @@ class Person {
   }
 }
 
-var p = new Person("Renny", 29)
+var p = new Person('Renny', 29)
 console.log(p)
 ```
 
@@ -96,8 +89,6 @@ console.log(Object.getOwnPropertyDescriptors(p.__proto__))
 }
 ```
 
-
-
 ### 訪問描述器方法
 
 透過訪問描述器能對屬性進行攔截：
@@ -123,12 +114,10 @@ class Person {
   }
 }
 
-var p = new Person("Renny", 29)
+var p = new Person('Renny', 29)
 ```
 
 對 address 屬性的獲取會經過 get address 訪問描述器，而對 address 屬性的修改會經過 set address。
-
-
 
 ### 靜態方法（類方法）
 
@@ -156,8 +145,6 @@ var p = Person.createPerson()
 console.log(p)
 ```
 
-
-
 ## 繼承
 
 通過 class 實現繼承要比以 prototype 實現繼承簡單明確的多：
@@ -179,7 +166,7 @@ class Student extends Person {
   }
 }
 
-var stu = new Student("why", 18, 100)
+var stu = new Student('why', 18, 100)
 
 console.log(stu)
 ```
@@ -195,8 +182,6 @@ console.log(stu.__proto__.__proto__.constructor)
 ```
 [class Person]
 ```
-
-
 
 ### 方法重寫
 
@@ -251,14 +236,11 @@ class Student extends Person {
     console.log('吃午餐')
   }
 }
-
 ```
 
 靜態方法也是相同的模式。
 
-
-
-## 當ES6 的 class 透過 babel 轉化為 ES5
+## 當 ES6 的 class 透過 babel 轉化為 ES5
 
 透過 [babel 的官網](https://babeljs.io/repl) 可以將 ES6 的程式碼進行化，以下轉化後的版本是基於版本 v7.16.6 ，並且 targets 為 defaults, not ie 10, not ie_mob 11。
 
@@ -280,32 +262,32 @@ class Person {
 轉化之後：
 
 ```js
-"use strict";
+'use strict'
 
 // 檢測該函數是不是作用構造函數進行調用
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function')
   }
 }
 
 // 傳入陣列進行遍歷，然後透過 defineProperty 去添加屬性
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    var descriptor = props[i]
+    descriptor.enumerable = descriptor.enumerable || false
+    descriptor.configurable = true
+    if ('value' in descriptor) descriptor.writable = true
     console.log(target, descriptor.key, descriptor)
-    Object.defineProperty(target, descriptor.key, descriptor);
+    Object.defineProperty(target, descriptor.key, descriptor)
   }
 }
 
 // 透過一個封裝好的函數為構造函數添加構造方法和靜態方法
 function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps)
+  if (staticProps) _defineProperties(Constructor, staticProps)
+  return Constructor
 }
 
 // 放在函數作用域中避免與全局變數衝突
@@ -313,25 +295,24 @@ function _createClass(Constructor, protoProps, staticProps) {
 var Person = /*#__PURE__*/ (function () {
   function Person(name, age) {
     // 目的是為了讓這個函數不被用普通的方式進行調用
-    _classCallCheck(this, Person);
+    _classCallCheck(this, Person)
 
-    this.name = name;
-    this.age = age;
+    this.name = name
+    this.age = age
   }
 
   // 通過調用這個函數進行方法的添加
   _createClass(Person, [
     {
-      key: "eating",
+      key: 'eating',
       value: function eating() {
-        console.log(this.name + " 再吃東西");
+        console.log(this.name + ' 再吃東西')
       }
     }
-  ]);
+  ])
 
-  return Person;
-})();
-
+  return Person
+})()
 ```
 
 ### 繼承的實現
@@ -342,8 +323,8 @@ class Person {
     this.name = name
     this.age = age
   }
-  
-  eating () {
+
+  eating() {
     console.log(this.name + ' 吃東西')
   }
 }
@@ -360,102 +341,96 @@ class Student extends Person {
 }
 ```
 
-轉化後的程式碼相對複雜很多，不過可以直接關注於核心思路 _inherits 函數作為繼承方法的實現，和 _createSuper 如何調用父類構造函數：
+轉化後的程式碼相對複雜很多，不過可以直接關注於核心思路 \_inherits 函數作為繼承方法的實現，和 \_createSuper 如何調用父類構造函數：
 
 ```js
-"use strict";
+'use strict'
 
 function _typeof(obj) {
-  "@babel/helpers - typeof";
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+  '@babel/helpers - typeof'
+  if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
     _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
+      return typeof obj
+    }
   } else {
     _typeof = function _typeof(obj) {
       return obj &&
-        typeof Symbol === "function" &&
+        typeof Symbol === 'function' &&
         obj.constructor === Symbol &&
         obj !== Symbol.prototype
-        ? "symbol"
-        : typeof obj;
-    };
+        ? 'symbol'
+        : typeof obj
+    }
   }
-  return _typeof(obj);
+  return _typeof(obj)
 }
 
 function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
+  if (typeof superClass !== 'function' && superClass !== null) {
+    throw new TypeError('Super expression must either be null or a function')
   }
   // 將父類的 prototype 作為某個物件的 __proto__ 並賦值給子類的 prototype
   // 並且該物件裡面要定義一個 constructor 指向子類本身
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: { value: subClass, writable: true, configurable: true }
-  });
+  })
 
   // 靜態方法的繼承
   // Student.__proto__ = Person
-  if (superClass) _setPrototypeOf(subClass, superClass);
+  if (superClass) _setPrototypeOf(subClass, superClass)
 }
 
 function _setPrototypeOf(o, p) {
   _setPrototypeOf =
     Object.setPrototypeOf ||
     function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-  return _setPrototypeOf(o, p);
+      o.__proto__ = p
+      return o
+    }
+  return _setPrototypeOf(o, p)
 }
 
 function _createSuper(Derived) {
-  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  var hasNativeReflectConstruct = _isNativeReflectConstruct()
   return function _createSuperInternal() {
     var Super = _getPrototypeOf(Derived),
-      result;
+      result
     if (hasNativeReflectConstruct) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-      result = Reflect.construct(Super, arguments, NewTarget);
+      var NewTarget = _getPrototypeOf(this).constructor
+      result = Reflect.construct(Super, arguments, NewTarget)
     } else {
-      result = Super.apply(this, arguments);
+      result = Super.apply(this, arguments)
     }
     // 做一些邊界判斷，最終還是返回 result
-    return _possibleConstructorReturn(this, result);
-  };
+    return _possibleConstructorReturn(this, result)
+  }
 }
 
 function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
+  if (call && (_typeof(call) === 'object' || typeof call === 'function')) {
+    return call
   } else if (call !== void 0) {
-    throw new TypeError(
-      "Derived constructors may only return object or undefined"
-    );
+    throw new TypeError('Derived constructors may only return object or undefined')
   }
-  return _assertThisInitialized(self);
+  return _assertThisInitialized(self)
 }
 
 function _assertThisInitialized(self) {
   if (self === void 0) {
-    throw new ReferenceError(
-      "this hasn't been initialised - super() hasn't been called"
-    );
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called")
   }
-  return self;
+  return self
 }
 
 function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
+  if (typeof Reflect === 'undefined' || !Reflect.construct) return false
+  if (Reflect.construct.sham) return false
+  if (typeof Proxy === 'function') return true
   try {
-    Boolean.prototype.valueOf.call(
-      Reflect.construct(Boolean, [], function () {})
-    );
-    return true;
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}))
+    return true
   } catch (e) {
-    return false;
+    return false
   }
 }
 
@@ -463,84 +438,82 @@ function _getPrototypeOf(o) {
   _getPrototypeOf = Object.setPrototypeOf
     ? Object.getPrototypeOf
     : function _getPrototypeOf(o) {
-        return o.__proto__ || Object.getPrototypeOf(o);
-      };
-  return _getPrototypeOf(o);
+        return o.__proto__ || Object.getPrototypeOf(o)
+      }
+  return _getPrototypeOf(o)
 }
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function')
   }
 }
 
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
+    var descriptor = props[i]
+    descriptor.enumerable = descriptor.enumerable || false
+    descriptor.configurable = true
+    if ('value' in descriptor) descriptor.writable = true
+    Object.defineProperty(target, descriptor.key, descriptor)
   }
 }
 
 function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps)
+  if (staticProps) _defineProperties(Constructor, staticProps)
+  return Constructor
 }
 
 var Person = /*#__PURE__*/ (function () {
   function Person(name, age) {
-    _classCallCheck(this, Person);
+    _classCallCheck(this, Person)
 
-    this.name = name;
-    this.age = age;
+    this.name = name
+    this.age = age
   }
 
   _createClass(Person, [
     {
-      key: "eating",
+      key: 'eating',
       value: function eating() {
-        console.log(this.name + " 吃東西");
+        console.log(this.name + ' 吃東西')
       }
     }
-  ]);
+  ])
 
-  return Person;
-})();
+  return Person
+})()
 
 var Student = /*#__PURE__*/ (function (_Person) {
   // 繼承方法
-  _inherits(Student, _Person);
+  _inherits(Student, _Person)
 
-  var _super = _createSuper(Student);
+  var _super = _createSuper(Student)
 
   function Student(name, age, sno) {
-    var _this;
+    var _this
 
-    _classCallCheck(this, Student);
+    _classCallCheck(this, Student)
 
     // 讓 _this 等於父類創建的實例，但是實例的 constructor 為子類
-    _this = _super.call(this, name, age);
-    _this.sno = sno;
-    return _this;
+    _this = _super.call(this, name, age)
+    _this.sno = sno
+    return _this
   }
 
   _createClass(Student, [
     {
-      key: "studying",
+      key: 'studying',
       value: function studying() {
-        console.log(this.name + " 在讀書");
+        console.log(this.name + ' 在讀書')
       }
     }
-  ]);
+  ])
 
-  return Student;
-})(Person);
+  return Student
+})(Person)
 ```
-
-
 
 ## 繼承內置類
 
@@ -559,16 +532,12 @@ class MyArray extends Array {
 var arr = new MyArray(1, 2, 3)
 ```
 
-
-
 ## 類的混入
 
 由於 JavaScript 中並沒有 mixing 之類的關鍵字，所以通常要實現混入會利用自訂義函數：
 
 ```js
-class Student {
-
-}
+class Student {}
 
 function mininRunner(BaseClass) {
   class NewClass extends BaseClass {
@@ -591,12 +560,9 @@ var stu = new (mixinEater(mininRunner(Student)))()
 
 stu.running()
 stu.eating()
-
 ```
 
 在 React 等框架中，在使用 class components 時，也會用到基於這種混入函數實現的高階組件（HOC）效果。
-
-
 
 ## 類的多態
 
@@ -608,7 +574,7 @@ function calcArea(shape) {
 }
 
 var obj1 = {
-  getArea: function() {
+  getArea: function () {
     return 1000
   }
 }
@@ -655,4 +621,3 @@ function calcArea(shape: Shape) {
 calcArea(r)
 calcArea(c)
 ```
-

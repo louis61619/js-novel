@@ -8,8 +8,6 @@
 
 到現在最主流的模塊化方案就是 ES6 和 CommonJS 這兩種。
 
-
-
 ## 實現一個簡單的模塊方案
 
 假設在 index.html 中引入了兩個文件：
@@ -17,16 +15,16 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script src="./aaa.js"></script>
-  <script src="./bbb.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./aaa.js"></script>
+    <script src="./bbb.js"></script>
+  </body>
 </html>
 ```
 
@@ -34,7 +32,7 @@
 
 ```js
 // 文件 aaa.js
-var moduleA =  (function() {
+var moduleA = (function () {
   var name = 'Louis'
   var age = 26
 
@@ -47,8 +45,8 @@ var moduleA =  (function() {
 
 ```js
 // 文件 bbb.js
-var moduleB = (function() {
-  if(moduleA.name) {
+var moduleB = (function () {
+  if (moduleA.name) {
     console.log('my name is ' + moduleA.name)
   }
 })()
@@ -58,8 +56,6 @@ var moduleB = (function() {
 
 1. 模塊命名還是可能會衝突，需要另外自訂規範
 2. 規範自訂性太高，需要額外學習
-
-
 
 ## CommonJS
 
@@ -93,7 +89,7 @@ console.log(aaa.name)
 // aaa.js
 // module.exports = exports
 
-const name = "Louis"
+const name = 'Louis'
 const age = 26
 
 exports.name = name
@@ -110,8 +106,6 @@ console.log(aaa.name)
 
 不過 exports 是為了符合 CommonJS 規範而添加的，現在相對較少使用。
 
-
-
 ### require
 
 require 的本質上就是一個函數，require 函數本身的規則下，假設導入 x 模塊：
@@ -122,21 +116,15 @@ require 的本質上就是一個函數，require 函數本身的規則下，假�
 
 模塊的加載順序採用深度優先搜索算法（DFS）。
 
-
-
 ### CommonJS 缺點
 
 由於 CommonJS 的 require 採用同步加載的方式，如果加載本地文件沒有問題，但是如果加載遠端文件就會面臨程式碼可能在請求的過程中阻塞的問題。
 
 現代網頁採用的是將 CommonJS 進行打包轉化的方式，不過早期在瀏覽器中會使用 AMD 或是 CMD 這兩種模塊化方案。
 
-
-
 ## AMD
 
 AMD 是 Asyncchronous Module Definition 的縮寫，採用非同步加載模塊的方式，AMD 作為一種規範，requriejs 是其中一種實現方式：
-
-
 
 ### 基本使用
 
@@ -145,15 +133,15 @@ AMD 是 Asyncchronous Module Definition 的縮寫，採用非同步加載模塊�
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script src="./lib/require.js" data-main="./src/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./lib/require.js" data-main="./src/main.js"></script>
+  </body>
 </html>
 ```
 
@@ -166,7 +154,7 @@ require.config({
   }
 })
 
-require(['foo'], function(foo) {
+require(['foo'], function (foo) {
   console.log(foo)
 })
 ```
@@ -174,8 +162,8 @@ require(['foo'], function(foo) {
 最後建立 foo 模塊：
 
 ```js
-define(function() {
-  const name = "Louis"
+define(function () {
+  const name = 'Louis'
 
   return {
     name
@@ -186,18 +174,14 @@ define(function() {
 如果在其他模塊中想要使用 foo 模塊：
 
 ```js
-define(['foo'], function(foo) {
+define(['foo'], function (foo) {
   console.log(foo)
 })
 ```
 
-
-
 ## CMD
 
 CMD 也是一種應用於瀏覽器的模塊化規範，全稱 Common Module Definition，比較優先的實現有：seajs。
-
-
 
 ### 基本使用
 
@@ -206,25 +190,25 @@ CMD 也是一種應用於瀏覽器的模塊化規範，全稱 Common Module Defi
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script src="./lib/sea.js"></script>
-  <script>
-    seajs.use("./src/main.js")
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./lib/sea.js"></script>
+    <script>
+      seajs.use('./src/main.js')
+    </script>
+  </body>
 </html>
 ```
 
 在 src 資料夾下建立 main 作為入口：
 
 ```js
-define(function(require, exports, module) {
+define(function (require, exports, module) {
   const { name } = require('./foo')
   console.log(name)
 })
@@ -233,8 +217,8 @@ define(function(require, exports, module) {
 最後建立 foo 模塊：
 
 ```js
-define(function(require, exports, module) {
-  const name = "Louis"
+define(function (require, exports, module) {
+  const name = 'Louis'
 
   module.exports = {
     name
@@ -242,15 +226,11 @@ define(function(require, exports, module) {
 })
 ```
 
-
-
 ## ES Module
 
 ES Module 是 ES6 推出的模塊化系統，使用 import 和 export 關鍵字，並採用靜態分析編譯的方式，當然也支持動態加載。
 
 採用 ES Module 將自動使用嚴格模式： use strict，並且只能使用 http/https 協議進模塊加載。
-
-
 
 ### 基本使用
 
@@ -259,15 +239,15 @@ ES Module 是 ES6 推出的模塊化系統，使用 import 和 export 關鍵字�
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script type="module"  src="./main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>
 ```
 
@@ -282,8 +262,6 @@ console.log(name)
 // foo.js
 export const name = 'Louis'
 ```
-
-
 
 ### export
 
@@ -300,21 +278,15 @@ export const name = 'Louis'
 
 ```js
 const name = 'Louis'
-export {
-  name
-}
+export { name }
 ```
 
 導出時設置別名：
 
 ```js
 const name = 'Louis'
-export {
-  name as fooName
-}
+export { name as fooName }
 ```
-
-
 
 ### import
 
@@ -344,9 +316,7 @@ export 和 import 結合使用：
 
 ```js
 import { name } from './foo.js'
-export {
- 	name
-}
+export { name }
 ```
 
 等同於：
@@ -360,8 +330,6 @@ export { name } from './foo.js'
 ```js
 export * from './foo.js'
 ```
-
-
 
 ### default
 
@@ -386,14 +354,12 @@ import name from './bar.js'
 console.log(name)
 ```
 
-
-
 ### import 函數
 
 ES Module 提供的 import 是會將程式碼進行阻塞的，會等待要導入的文件執行完畢後再執行下面的程式碼，ES 模塊化方案另外提供了 import 函數用於動態導入：
 
 ```js
-import('./foo.js').then(res => {
+import('./foo.js').then((res) => {
   console.log(res.default)
 })
 ```
@@ -404,9 +370,7 @@ ES11 新增了一個特性， import.meta 提供了當前 url 路徑：
 console.log(import.meta)
 ```
 
-
-
-### ES Module原理
+### ES Module 原理
 
 階段一：構建（Construction），根據地址查找 js 文件，並且下載將其解析成模塊紀錄（Module Record）
 

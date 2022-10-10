@@ -2,8 +2,6 @@
 
 在 ES6 之前，存儲數據的結構主要有兩種：陣列、物件，ES6 新增了另外兩種資料結構：Set、Map 以及它們的另外形式 WeakSet、Weakmap。
 
-
-
 ## Set
 
 Set 物件可以儲存任何類型的唯一值：
@@ -57,7 +55,7 @@ const arrSet = new Set(arr)
 console.log([...arrSet])
 ```
 
- 總結一下 Set 物件包含的幾種屬性和方法：
+總結一下 Set 物件包含的幾種屬性和方法：
 
 - size 屬性：獲取 Set 物件的元素個數。
 - add 方法：為 Set 物件添加元素。
@@ -65,8 +63,6 @@ console.log([...arrSet])
 - has 方法：查找 Set 物件內有沒有該元素，返回 boolean 類型。
 - clear 方法：清空 Set 物件。
 - 可以使用 forEach 方法，和 for ... of 對 Set 物件進行遍歷。
-
-
 
 ## WeakSet
 
@@ -77,7 +73,7 @@ WeakSet 和 Set 結構基本相似，只有兩點差別：
 
 ```js
 let obj = {
-  name: "Louis"
+  name: 'Louis'
 }
 
 const set = new WeakSet()
@@ -102,21 +98,19 @@ class Person {
     if (!personSet.has(this)) {
       throw new Error('is not correct this!')
     }
-    console.log("running~", this)
+    console.log('running~', this)
   }
 }
 
 const p = new Person()
 
 // error!
-p.running.call({name: 'Louis'})
+p.running.call({ name: 'Louis' })
 ```
-
-
 
 ## Map
 
-Map用於儲存映射關係，和一般的物件不同，Map的 key 可以使用物件：
+Map 用於儲存映射關係，和一般的物件不同，Map 的 key 可以使用物件：
 
 ```js
 const obj1 = {
@@ -129,8 +123,8 @@ const obj2 = {
 
 // Map 允許使用物件類型作為 key
 const map = new Map()
-map.set(obj1, "aaa")
-map.set(obj2, "bbb")
+map.set(obj1, 'aaa')
+map.set(obj2, 'bbb')
 
 // Map(2) { { name: 'Renny' } => 'aaa', { name: 'Louis' } => 'bbb' }
 console.log(map)
@@ -147,13 +141,17 @@ const obj2 = {
   name: 'Louis'
 }
 
-const map = new Map([[obj1, "aaa"],[obj2, "bbb"], [2, "ddd"]])
+const map = new Map([
+  [obj1, 'aaa'],
+  [obj2, 'bbb'],
+  [2, 'ddd']
+])
 
 // Map(2) { { name: 'Renny' } => 'aaa', { name: 'Louis' } => 'bbb' }
 console.log(map)
 ```
 
- 總結一下 Map 物件包含的幾種屬性和方法：
+總結一下 Map 物件包含的幾種屬性和方法：
 
 - size 屬性：獲取 Map 物件的鍵值對個數。
 - add 方法：為 Map 物件添加元素。
@@ -161,8 +159,6 @@ console.log(map)
 - has 方法：查找 Map 物件內有沒有該元素，返回 boolean 類型。
 - clear 方法：清空 Map 物件。
 - 可以使用 forEach 方法，和 for ... of 對 Map 物件進行遍歷。
-
-
 
 ## WeakMap
 
@@ -172,11 +168,11 @@ WeakMap 和 Map 結構基本相似，只有兩點差別：
 - 對 key 物件是一個**弱引用**，意思 WeakMap 中的某個 key 對應的記憶體地址若沒有其他物件指向，那麼 GC 就會對 WeakMap 中的該 key 和 value 進行回收。
 
 ```js
-let obj = { name: "obj1" }
+let obj = { name: 'obj1' }
 
 const map = new WeakMap()
 
-map.set(obj, "aaa")
+map.set(obj, 'aaa')
 
 obj = null
 ```
@@ -203,8 +199,7 @@ weakMap.set(obj, objMap)
 const targetMap = weakMap.get(obj)
 const fns = targetMap.get('name')
 
-fns.forEach(item => {
+fns.forEach((item) => {
   item()
 })
 ```
-

@@ -1,27 +1,21 @@
 # 原型鏈和繼承
 
 ```js
-function Person() {
-
-}
+function Person() {}
 var p1 = new Person()
 ```
 
-在編寫以上的程式碼時，許多從其他語言轉過來的開發者習慣將 new 關鍵字後的 Person 稱之為類，不過在 JavaScript 中這個 Person 本質就是一個**構造函數**，類的定義是ES6以後才明確以 class 關鍵字來定義，而 class 本質上也是用原型和構造函數實現的一種語法糖。
-
-
+在編寫以上的程式碼時，許多從其他語言轉過來的開發者習慣將 new 關鍵字後的 Person 稱之為類，不過在 JavaScript 中這個 Person 本質就是一個**構造函數**，類的定義是 ES6 以後才明確以 class 關鍵字來定義，而 class 本質上也是用原型和構造函數實現的一種語法糖。
 
 ## 物件導向的特性
 
-JavaScript支持了多種程式設計的範式，包含函數式編程（ Functional Programming ）和物件導向編程（ Object-oriented programming ）。
+JavaScript 支持了多種程式設計的範式，包含函數式編程（ Functional Programming ）和物件導向編程（ Object-oriented programming ）。
 
 物件導向有三大特性：
 
 - **封裝 (Encapsulation)**：將屬性和方法集合到某個類中，並將必要的內容對外公開，沒有必要的內容隱藏起來。
 - **繼承 (Inhertitance)**：透過繼承子類能使用父類所擁有的屬性和方法。
 - **多態 (polymorphism)**：不同的物件在執行時會表現出不同的型態。
-
-
 
 ## 原型鏈
 
@@ -57,11 +51,9 @@ var obj = {
   age: 26
 }
 
-obj.__proto__ = {
-}
+obj.__proto__ = {}
 
-obj.__proto__.__proto__ = {
-}
+obj.__proto__.__proto__ = {}
 
 obj.__proto__.__proto__.__proto__ = {
   address: '台北市'
@@ -76,15 +68,13 @@ console.log(obj.address)
 台北市
 ```
 
-
-
 ### 原型如何產生
 
 在前面提到，通過 new 關鍵字建立物件時，會有幾個步驟：
 
 1. 在記憶體中創建一個空物件；
 2. 將 this 賦值為該物件，意即 this 的指針指向該物件；
-3. 該物件的  `__proto__` 賦值為構造函數的 prototype；
+3. 該物件的 `__proto__` 賦值為構造函數的 prototype；
 4. 返回 this 。
 
 而創建物件時以下兩種方式是等價的：
@@ -107,7 +97,7 @@ var obj = new Object()
 console.log(obj.__proto__ === Object.prototype)
 ```
 
-通常來說原型內部的所有方法是不可列舉的，不過可以借助Object本身提供的方法將所有包含在原型中的方法進行列舉：
+通常來說原型內部的所有方法是不可列舉的，不過可以借助 Object 本身提供的方法將所有包含在原型中的方法進行列舉：
 
 ```js
 console.log(Object.getOwnPropertyDescriptors(Object.prototype))
@@ -118,16 +108,12 @@ console.log(Object.getOwnPropertyDescriptors(Object.prototype))
 通過以下簡單的程式碼就能得到驗證：
 
 ```js
-function Person() {
-
-}
+function Person() {}
 
 const p = new Person()
 
 console.log(p.__proto__.__proto__ === Object.prototype)
 ```
-
-
 
 ## 繼承的實現
 
@@ -138,7 +124,7 @@ function Person() {
   this.name = 'Louis'
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + ' eating')
 }
 
@@ -150,7 +136,7 @@ function Student() {
 var p = new Person()
 Student.prototype = p
 
-Student.prototype.studying = function() {
+Student.prototype.studying = function () {
   console.log(this.name + ' studying')
 }
 
@@ -169,8 +155,6 @@ stu.eating()
 2. 由於是直接對 ｐ實例進行引用，所以當 ｐ內部的某些屬性為物件時，修改這個屬性所有繼承 p 的子類會全部受到影響。
 3. 不好處理參數傳遞。
 
-
-
 ### 借用構造函數 （ constructor stealing ）
 
 ```js
@@ -178,7 +162,7 @@ function Person(name) {
   this.name = name
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + ' eating')
 }
 
@@ -191,7 +175,7 @@ function Student(name, sno) {
 var p = new Person()
 Student.prototype = p
 
-Student.prototype.studying = function() {
+Student.prototype.studying = function () {
   console.log(this.name + ' studying')
 }
 
@@ -207,8 +191,6 @@ var stu = new Student('Louis', 111)
 1. Person 函數被調用了兩次。
 2. 原型物件上多出了一些值為 undefined 的不必要屬性。
 
-
-
 ### 將父類原型賦值給子類
 
 ```js
@@ -216,7 +198,7 @@ function Person(name) {
   this.name = name
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + ' eating')
 }
 
@@ -228,7 +210,7 @@ function Student(name, sno) {
 // 直接替換prototype
 Student.prototype = Person.prototype
 
-Student.prototype.studying = function() {
+Student.prototype.studying = function () {
   console.log(this.name + ' studying')
 }
 
@@ -242,8 +224,6 @@ var stu = new Student('Louis', 111)
 缺點：
 
 1. 修改子類的 prototype 等於修改父類的 prototype
-
-
 
 ### 寄生組合式繼承的實現
 
@@ -285,7 +265,7 @@ function Person(name) {
   this.name = name
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + ' eating')
 }
 
@@ -298,14 +278,14 @@ function Student(name, sno) {
 Student.prototype = Object.create(Person.prototype)
 
 // 對 constructor 進行處理
-Object.defineProperty(Student.prototype, "constructor", {
+Object.defineProperty(Student.prototype, 'constructor', {
   enumerable: false,
   configurable: true,
   writable: true,
   value: Student
 })
 
-Student.prototype.studying = function() {
+Student.prototype.studying = function () {
   console.log(this.name + ' studying')
 }
 
@@ -319,7 +299,7 @@ function inheritPrototype(SubType, SuperType) {
   // 只取一個空物件上的原型為 Person.prototype
   SubType.prototype = Object.create(SuperType.prototype)
   // 對 constructor 進行處理
-  Object.defineProperty(SubType.prototype, "constructor", {
+  Object.defineProperty(SubType.prototype, 'constructor', {
     enumerable: false,
     configurable: true,
     writable: true,
@@ -331,7 +311,7 @@ function Person(name) {
   this.name = name
 }
 
-Person.prototype.eating = function() {
+Person.prototype.eating = function () {
   console.log(this.name + ' eating')
 }
 
@@ -342,7 +322,7 @@ function Student(name, sno) {
 
 inheritPrototype(Student, Person)
 
-Student.prototype.studying = function() {
+Student.prototype.studying = function () {
   console.log(this.name + ' studying')
 }
 
@@ -352,10 +332,6 @@ var stu = new Student('Louis', 111)
 內存的表現形式如下圖：
 
 ![image-20211219233210491](assets/image-20211219233210491.png)
-
-
-
-
 
 ## 物件、函數與原型
 
@@ -369,18 +345,15 @@ function Foo() {}
 
 ![image-20211220204350619](assets/image-20211220204350619.png)
 
-
-
-
-
 ## 有關原型的方法補充
 
 - hasOwnProperty
+
   - 物件是否有某一個自身的屬性（ 不是在原型上的屬性 ）
 
 - In 操作符
   - 判斷某個屬性是否在某物件或是該物件的原型上
 - instanceof
-  - 用於檢測構造函數的prototype，是否出現在某個實例的原型鏈上
+  - 用於檢測構造函數的 prototype，是否出現在某個實例的原型鏈上
 - isPrototypeOf
   - 用於檢測某個物件，是否出現在某個實例的原型鏈上

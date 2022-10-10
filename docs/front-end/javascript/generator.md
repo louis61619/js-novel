@@ -9,21 +9,18 @@ function* foo() {
 }
 ```
 
-
-
-## next方法
+## next 方法
 
 next 方法能夠讓函數分次調用：
 
 ```js
 function* foo() {
-
   // 1.
   console.log('生成器函數開始')
   const value1 = 100
   yield value1
 
-  // 2. 
+  // 2.
   const value2 = 200
   yield value2
 
@@ -66,7 +63,6 @@ console.log(generator.next())
 
 ```js
 function* foo() {
-
   const value1 = 100
   // 透過第一個 yield 的返回值，能夠獲取第二個 next 傳入的參數
   const n = yield value1
@@ -88,15 +84,12 @@ console.log(generator.next(10))
 { value: 2000, done: false }
 ```
 
-
-
 ## return 方法
 
 生成器中的 return 方法能夠終止生成器繼續向下執行，調用 return 方法後會將傳入的參數作為結果返回並且將之後再調用 next 方法無法繼續向下執行程式：
 
 ```js
 function* foo() {
-
   const value1 = 100
   const n = yield value1
 
@@ -121,13 +114,10 @@ console.log(generator.next())
 { value: undefined, done: true }
 ```
 
-
-
 ## throw 方法
 
 ```js
 function* foo() {
-
   const value1 = 100
   try {
     // throw 會在這邊拋出異常，如果有將該異常捕獲程式碼就可以向下執行
@@ -136,7 +126,7 @@ function* foo() {
     console.log(error)
     yield 'abc'
   }
-  
+
   const value2 = 200
   yield value2
 }
@@ -164,8 +154,6 @@ console.log(generator.next())
 { value: undefined, done: true }
 ```
 
-
-
 ## 用生成器替代迭代器
 
 ```js
@@ -189,8 +177,6 @@ console.log(namesIterator.next())
 console.log(namesIterator.next())
 ```
 
-
-
 ## 非同步程式碼的處理方案
 
 生成器用於處理非同步程式碼是非常簡潔明瞭的，可以透過生成器實現一個類似於 async、await 的方案，首先透過遞迴實現一個執行函數：
@@ -204,7 +190,7 @@ function execGenerator(genFn) {
     if (result.done) {
       return result.value
     }
-    result.value.then(res => {
+    result.value.then((res) => {
       exec(res)
     })
   }
@@ -242,6 +228,3 @@ async function getData() {
 }
 getData()
 ```
-
-
-

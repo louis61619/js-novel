@@ -4,8 +4,6 @@
 
 現在最主流的 JavaScript 套件管理工具是 npm，全稱 Node Package Manager，只要安裝 Nodejs 就會自動安裝 npm。
 
-
-
 ## 初始化
 
 輸入 npm init 初始化項目，將訊息輸入完畢後會建立一個文件 package.json，文件中描述了有關於當前項目訊息：
@@ -34,8 +32,6 @@
 - license 開源協議
 - private 項目是否為私有，為 true 無法發布
 - engines 可以對 node 版本進行規範，如：node > 8.0.0
-
-
 
 ## 安裝第三方庫
 
@@ -80,24 +76,20 @@ npm i <package name> -D
 
 某些第三庫也會自訂屬性可以放在 package.json 中配置，如：ESLint、browserslist
 
-
-
 ## 版本管理
 
 npm 包通常遵循 semver 版本管理規範，semver 要求版本號是三位 X.Y.Z：
 
-- X主版本號（major）：當做了可能不兼容向下版本的 API 修改；
-- Y次版本號（minor）：當做了向下兼容的功能性增加；
-- Z修訂號（patch）：當做了某些問題修正；
+- X 主版本號（major）：當做了可能不兼容向下版本的 API 修改；
+- Y 次版本號（minor）：當做了向下兼容的功能性增加；
+- Z 修訂號（patch）：當做了某些問題修正；
 
 在版本號前面有可能加上＾或 ～：
 
-- ＾X.Y.Z：表示 X 不變，Y 和 Z 安裝最新版本
-- ～X.Y.Z：表示 X 和 Y 不變，Z 安裝最新版本
+- ＾ X.Y.Z：表示 X 不變，Y 和 Z 安裝最新版本
+- ～ X.Y.Z：表示 X 和 Y 不變，Z 安裝最新版本
 
 不過如果有 package-lock.json 文件，會優先安照該文件紀錄的版本安裝。
-
-
 
 ## 全局安裝
 
@@ -116,8 +108,6 @@ vue --version
 ```
 @vue/cli 4.5.13
 ```
-
-
 
 ## npm install 流程
 
@@ -140,8 +130,6 @@ vue --version
 npm get cache
 ```
 
-
-
 ## npm 其他指令
 
 卸載：
@@ -158,8 +146,6 @@ npm clean cache
 
 其他見 https://docs.npmjs.com/cli/v8/commands
 
-
-
 ## yarn
 
 yarn 是為了彌補早期 npm 的缺陷，雖然 npm5 開始已經進行了很多升級版改進，依然有很多人使用 yarn，首先要進行全局安裝：
@@ -170,17 +156,15 @@ npm i -g yarn
 
 以下為命令的對比：
 
-| command                | npm                                                          | yarn                                                         |
-| :--------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| Install dependencies   | npm install                                                  | yarn                                                         |
-| Install package        | npm install package_name npm install package_name@version_number | yarn add package_name yarn add package_name@version_number   |
-| Uninstall package      | npm uninstall package_name                                   | yarn remove package_name                                     |
-| Install dev package    | npm install package_name –save-dev                           | yarn add package_name –dev                                   |
-| Update dev package     | npm update package_name npm update package_name@version_number | yarn upgrade package_name yarn upgrade package_name@version_number |
-| View package           | npm view package_name                                        | yarn info package_name                                       |
-| Global install package | npm install -g package_name                                  | yarn global add package_name                                 |
-
-
+| command                | npm                                                              | yarn                                                               |
+| :--------------------- | :--------------------------------------------------------------- | :----------------------------------------------------------------- |
+| Install dependencies   | npm install                                                      | yarn                                                               |
+| Install package        | npm install package_name npm install package_name@version_number | yarn add package_name yarn add package_name@version_number         |
+| Uninstall package      | npm uninstall package_name                                       | yarn remove package_name                                           |
+| Install dev package    | npm install package_name –save-dev                               | yarn add package_name –dev                                         |
+| Update dev package     | npm update package_name npm update package_name@version_number   | yarn upgrade package_name yarn upgrade package_name@version_number |
+| View package           | npm view package_name                                            | yarn info package_name                                             |
+| Global install package | npm install -g package_name                                      | yarn global add package_name                                       |
 
 ## npx
 
@@ -188,8 +172,6 @@ npx 也是 Nodejs 自帶的工具：
 
 - 透過 npx 能夠優先查找本地的 node_modules 中存在的第三方命令工具
 - npx 在本地沒有安裝的情況下會從線上的 registry 獲取相關的命令工具，如：create-react-app
-
-
 
 ## 發布 npm 套件
 

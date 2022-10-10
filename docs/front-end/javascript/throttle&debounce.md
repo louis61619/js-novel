@@ -2,8 +2,6 @@
 
 由於 JavaScript 是基於事件驅動，大量的操作會觸發事件，加入到事件隊列中處理，而對於某些頻繁的事件處理會照成性能的損耗，可以透過防抖（debounce）和節流（throttle）來限制事件頻繁的發生。
 
-
-
 ## 防抖（Debounce）
 
 防抖的意義在於，當事件被觸發時，相應的函數不會被立即觸發，而是會被推遲一段時間，當事件被密集觸發時，函數的觸發也會被頻繁推遲，只有在等待一段時間後沒有事件觸發，才會真正執行函數。
@@ -13,8 +11,6 @@
 - 輸入框中頻繁的輸入內容，搜索或者提交訊息
 - 頻繁的點擊按鈕，觸發事件
 - 監聽滾動事件，完成某些特定操作
-
-
 
 ### 基本實現
 
@@ -49,8 +45,6 @@ function debounce(fn, delay) {
   return _debounce
 }
 ```
-
-
 
 ### 進階實現
 
@@ -102,7 +96,7 @@ function debounce(fn, delay, immediate = false) {
   }
 
   // 加入取消功能
-  _debounce.cancel = function() {
+  _debounce.cancel = function () {
     if (timer) {
       clearTimeout(timer)
       timer = null
@@ -116,7 +110,6 @@ function debounce(fn, delay, immediate = false) {
 獲取返回值可以有兩種方案，一種是加上 callback 參數或者是利用 promise：
 
 ```js
-
 function debounce(fn, delay, immediate = false, resultCallback) {
   let timer = null
   let isInvoke = false
@@ -142,7 +135,7 @@ function debounce(fn, delay, immediate = false, resultCallback) {
       }
     })
   }
-  _debounce.cancel = function() {
+  _debounce.cancel = function () {
     if (timer) {
       clearTimeout(timer)
       timer = null
@@ -153,8 +146,6 @@ function debounce(fn, delay, immediate = false, resultCallback) {
 }
 ```
 
-
-
 ## 節流（throttle）
 
 節流與防抖不相同的事，不管如何頻繁觸發事件，都讓執行的函數以相同的頻率被執行。
@@ -163,8 +154,6 @@ function debounce(fn, delay, immediate = false, resultCallback) {
 
 - 監聽頁面滾動
 - 用戶頻繁點擊按鈕
-
-
 
 ### 基本實現
 
@@ -187,8 +176,6 @@ function throttle(fn, interval) {
 }
 ```
 
-
-
 ### 進階實現
 
 加入立即執行和尾部執行參數選項：
@@ -201,7 +188,7 @@ function throttle(fn, interval, options = { leading: true, trailing: false }) {
 
   function _throttle(...args) {
     const nowTime = new Date().getTime()
-    if(!lastTime && !leading) lastTime = nowTime
+    if (!lastTime && !leading) lastTime = nowTime
 
     // 計算當間隔小於當前時間減去上一次紀錄的時間就要被執行
     const remainTime = interval - (nowTime - lastTime)
@@ -223,7 +210,6 @@ function throttle(fn, interval, options = { leading: true, trailing: false }) {
         fn.apply(this, args)
       }, remainTime)
     }
-    
   }
 
   return _throttle
@@ -233,17 +219,20 @@ function throttle(fn, interval, options = { leading: true, trailing: false }) {
 加上 callback 參數或者是利用 promise 獲取返回值：
 
 ```js
-function throttle(fn, interval, options = { leading: true, trailing: false, resultCallback: undefined }) {
+function throttle(
+  fn,
+  interval,
+  options = { leading: true, trailing: false, resultCallback: undefined }
+) {
   const { leading, trailing, resultCallback } = options
   let lastTime = 0
   let timer = null
 
   function _throttle(...args) {
-
     return new Promise((resolve) => {
       const nowTime = new Date().getTime()
-      if(!lastTime && !leading) lastTime = nowTime
-  
+      if (!lastTime && !leading) lastTime = nowTime
+
       // 計算當間隔小於當前時間減去上一次紀錄的時間就要被執行
       const remainTime = interval - (nowTime - lastTime)
       if (remainTime <= 0) {
@@ -252,25 +241,25 @@ function throttle(fn, interval, options = { leading: true, trailing: false, resu
           timer = null
         }
         const result = fn.apply(this, args)
-        if(resultCallback) resultCallback(result)
+        if (resultCallback) resultCallback(result)
         resolve(result)
         lastTime = nowTime
         return
       }
-  
+
       if (trailing && !timer) {
         timer = setTimeout(() => {
           timer = null
           lastTime = !leading ? 0 : new Date().getTime()
           const result = fn.apply(this, args)
-          if(resultCallback) resultCallback(result)
+          if (resultCallback) resultCallback(result)
           resolve(result)
         }, remainTime)
       }
     })
   }
 
-  _throttle.cancel = function() {
+  _throttle.cancel = function () {
     if (timer) clearTimeout(timer)
     timer = null
     lastTime = 0
@@ -278,10 +267,7 @@ function throttle(fn, interval, options = { leading: true, trailing: false, resu
 
   return _throttle
 }
-
 ```
-
-
 
 ## 借助第三方庫
 
@@ -290,25 +276,25 @@ function throttle(fn, interval, options = { leading: true, trailing: false, resu
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <input type="text">
-  <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.2/underscore-umd-min.js"></script>
-  <script>
-    const inputEl = document.querySelector('input')
-    let counter = 1
-    function inputChange (event) {
-      console.log(`發送了第${++counter}次網路請求`, event, this)
-    }
-    inputEl.oninput = _.debounce(inputChange, 1000)
-    // inputEl.oninput = _.throttle(inputChange, 1000)
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.2/underscore-umd-min.js"></script>
+    <script>
+      const inputEl = document.querySelector('input')
+      let counter = 1
+      function inputChange(event) {
+        console.log(`發送了第${++counter}次網路請求`, event, this)
+      }
+      inputEl.oninput = _.debounce(inputChange, 1000)
+      // inputEl.oninput = _.throttle(inputChange, 1000)
+    </script>
+  </body>
 </html>
 ```
 

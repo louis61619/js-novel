@@ -9,7 +9,7 @@ const obj = {
 }
 
 // 監聽多屬性
-Object.keys(obj).forEach(key => {
+Object.keys(obj).forEach((key) => {
   let value = obj[key]
   Object.defineProperty(obj, key, {
     get() {
@@ -26,8 +26,6 @@ Object.keys(obj).forEach(key => {
 
 不過 Object.defineProperty 在設計之初就並非是為了進行屬性監聽的，只能對物件既有的屬性做監聽，對於新增或是刪除屬性 Object.defineProperty 是無法做到的，所以 ES6 新增了 Proxy 。
 
-
-
 ## Proxy 基本使用
 
 Proxy 是一個類，是用於創建一個代理物件的，針對要監聽的原物件所有操作，都通過 Proxy 所創建的代理物件完成：
@@ -40,27 +38,26 @@ const obj = {
 
 // 默認將所有操作映射到原物件
 const objProxy = new Proxy(obj, {
-
   // 獲取值時的捕獲器
-  get: function(target, key) {
+  get: function (target, key) {
     console.log(`監聽到${target}物件的${key}屬性被訪問了`)
     return target[key]
   },
 
   // 設置值時的捕獲器
-  set: function(target, key, newValue) {
+  set: function (target, key, newValue) {
     console.log(`監聽到${target}物件的${key}屬性被設置了`)
     target[key] = newValue
   },
 
   // 監聽 in 的捕獲器
-  has: function(target, key) {
+  has: function (target, key) {
     console.log(`監聽到${target}物件的${key}屬性的in操作`)
     return key in target
   },
 
   // 監聽刪除的捕獲器
-  deleteProperty: function(target, key) {
+  deleteProperty: function (target, key) {
     console.log(`監聽到${target}物件的${key}屬性的刪除操作`)
     delete target[key]
   }
@@ -78,13 +75,11 @@ console.log(obj.name)
 - Handler.setPrototypeOf：Object.setPrototypeOf 方法的捕獲器。
 - Handler.isExtensible：Object.isExtensible 方法的捕獲器。
 - Handler.preventExtensible：Object.preventExtensible 方法的捕獲器。
-- Handler.getOwnPropertyDecriptor：Object.getOwnPropertyDecriptor方法的捕獲器。
+- Handler.getOwnPropertyDecriptor：Object.getOwnPropertyDecriptor 方法的捕獲器。
 - Handler.difineProperty：Object.difineProperty 方法的捕獲器。
 - Handler.ownKeys：Object.getOwnPropertyName 和 Object.getOwnPropertySymbols 方法的捕獲器。
 - Handler.apply：函數調用操作的捕獲器。
 - Handler.construct：new 操作符的捕獲器。
-
-
 
 ## Reflect 基本使用
 
@@ -97,10 +92,10 @@ const obj = {
 }
 
 const objProxy = new Proxy(obj, {
-  get: function(target, key) {
+  get: function (target, key) {
     return Reflect.set(target, key)
   },
-  set: function(target, key, newValue) {
+  set: function (target, key, newValue) {
     const result = Reflect.set(target, key, newValue)
     if (result) {
       // ...設置成功
@@ -114,8 +109,6 @@ objProxy.name = 'Renny'
 
 console.log(obj.name)
 ```
-
-
 
 ## Proxy 中 receiver 參數
 
@@ -134,20 +127,18 @@ const obj = {
 }
 
 const objProxy = new Proxy(obj, {
-  get: function(target, key, receiver) {
+  get: function (target, key, receiver) {
     // receiver 是創建出來的代理物件
     // Reflect.get 的第三個參數可以改變 getter 和 setter 的 this 指向
     return Reflect.get(target, key, receiver)
   },
-  set: function(target, key, newValue, receiver) {
+  set: function (target, key, newValue, receiver) {
     Reflect.set(target, key, newValue, receiver)
   }
 })
 
 console.log(objProxy.name)
 ```
-
-
 
 ## Reflect.construct
 
@@ -159,12 +150,10 @@ function Student(name, age) {
   this.age = age
 }
 
-function Teacher() {
-
-}
+function Teacher() {}
 
 // 執行 Student 函數中的內容，但是創建出來 Teacher 物件
-const teacher = Reflect.construct(Student, ["Louis", 26], Teacher)
+const teacher = Reflect.construct(Student, ['Louis', 26], Teacher)
 
 console.log(teacher.__proto__ === Teacher.prototype)
 ```
