@@ -1,2 +1,2 @@
-- 這是一個 web 開發者的部落格
+- 這是一份 javascript 學習筆記
 - 基於 vuepress
