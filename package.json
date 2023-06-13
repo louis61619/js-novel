@@ -4,6 +4,10 @@
   "description": "louis blog",
   "author": "louis <louis61619@gmail.com>",
   "license": "MIT",
+  "homepage": "https://louis61619.github.io/js-novel/",
+  "repository": {
+    "url": "https://github.com/louis61619/js-novel"
+  },
   "devDependencies": {
     "@types/ityped": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
