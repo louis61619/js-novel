@@ -11,7 +11,7 @@
     // 輔助導入
     "importHelpers": true,
     // 按照node的方式去解析模塊
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     // 跳過對一些庫的類型檢測
     "skipLibCheck": true,
     // es module和 common js 能不能混和使用

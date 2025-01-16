@@ -12,6 +12,8 @@
     "@types/ityped": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
+    "@vuepress/bundler-webpack": "^2.0.0-rc.19",
+    "@vuepress/plugin-shiki": "^2.0.0-rc.71",
     "@vuepress/utils": "^2.0.0-alpha.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.1.0",
@@ -21,7 +23,7 @@
     "markdown-it-disable-url-encode": "^1.0.1",
     "prettier": "^2.4.1",
     "typescript": "^4.4.4",
-    "vuepress": "^2.0.0-beta.26"
+    "vuepress": "2.0.0-rc.19"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -35,7 +37,9 @@
     }
   },
   "dependencies": {
-    "@vuepress/theme-default": "^2.0.0-beta.26",
-    "ityped": "^1.0.3"
+    "@vuepress/theme-default": "^2.0.0-rc.70",
+    "ityped": "^1.0.3",
+    "sass": "^1.83.4",
+    "sass-loader": "^16.0.4"
   }
 }

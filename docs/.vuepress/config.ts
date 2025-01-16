@@ -1,8 +1,9 @@
-import { NavbarConfig } from '@vuepress/theme-default'
-import { path, fs } from '@vuepress/utils'
-import type { DefaultThemeOptions } from 'vuepress'
+// import { NavbarConfig } from '@vuepress/theme-default'
+import { webpackBundler } from '@vuepress/bundler-webpack'
+import { defaultTheme, NavbarOptions } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
-import { mdPlugin } from './plugin'
+import { path, fs } from '@vuepress/utils'
+import { shikiPlugin } from '@vuepress/plugin-shiki'
 
 type ConfigType = {
   path?: string
@@ -25,16 +26,8 @@ const config: ConfigsType = [
       {
         path: '/front-end/javascript',
         text: 'javascript'
-      },
-      {
-        path: '/front-end/react',
-        text: 'react'
       }
     ]
-  },
-  {
-    text: '演算法',
-    path: '/algorithm'
   }
 ]
 
@@ -74,26 +67,38 @@ function getConfig(
   }
 
   return {
-    navbar: rawConfigs as NavbarConfig,
+    navbar: rawConfigs,
     sidebar
   }
 }
 
 const { navbar, sidebar } = getConfig(config)
 
-export default defineUserConfig<DefaultThemeOptions>({
+export default defineUserConfig({
   title: `Louis's blog`,
-  description: '這是一個web開發者的部落格',
-  theme: path.resolve(__dirname, './theme'),
-  base: '/js-novel/',
-  extendsMarkdown: (md: any) => {
-    md.use(mdPlugin)
-  },
-  themeConfig: {
+  description: '這是一本前端工程學習筆記',
+  theme: defaultTheme({
+    // set theme config here
     repo: 'https://github.com/louis61619/js-novel.git',
-    navbar,
-    sidebar
-  }
+    // navbar: {
+
+    // },
+    sidebar,
+    themePlugins: {
+      prismjs: false
+    }
+  }),
+  bundler: webpackBundler(),
+  base: '/js-novel/',
+  plugins: [
+    shikiPlugin({
+      langs: ['bash', 'diff', 'json', 'md', 'ts', 'vue'],
+      theme: 'dark-plus'
+    })
+  ]
+  // extendsMarkdown: (md) => {
+  //   md.use(mdPlugin)
+  // }
 })
 
 export { navbar }

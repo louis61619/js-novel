@@ -1,21 +1,21 @@
 <template>
   <Layout>
     <template #page>
-      <main class="home home-container">
-        <header class="hero">
-          <img :src="withBase(data.heroImage)" alt="home-logo" />
+      <main class="vp-home">
+        <header class="vp-hero">
+          <img class="vp-hero-image" :src="withBase(data.heroImage)" alt="home-logo" />
 
           <h1>{{ localData.title }}</h1>
-          <p class="description" :style="{ height: `${domHeight}px` }">
+          <p class="vp-hero-description">
             <span ref="desDom"></span>
           </p>
-          <a :href="withBase(data.actions[0].link)">
-            <button class="actions">
+          <p class="vp-hero-actions">
+            <AutoLink class="vp-hero-action-button" :config="data.actions[0]">
               {{ data.actions[0].text }}
-            </button>
-          </a>
+            </AutoLink>
+          </p>
         </header>
-        <div class="footer">
+        <div class="vp-footer">
           {{ data.footer }}
         </div>
       </main>
@@ -28,11 +28,13 @@ import { defineComponent, onMounted, ref } from 'vue'
 import Layout from '@vuepress/theme-default/lib/client/layouts/Layout.vue'
 import { usePageFrontmatter, useSiteLocaleData, withBase } from '@vuepress/client'
 import { init } from 'ityped'
+import { AutoLink } from 'vuepress/client'
 
 export default defineComponent({
   name: 'HomePage',
   components: {
-    Layout
+    Layout,
+    AutoLink
   },
   setup() {
     const data = usePageFrontmatter()
@@ -62,33 +64,23 @@ export default defineComponent({
   .description {
     padding-bottom: 3rem;
   }
+}
+.vp-hero-action-button {
+  display: block;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  letter-spacing: 4px;
+  color: white;
+  background: #000000;
+  border-radius: 8px;
+  margin: 3rem 0;
 
-  button {
-    display: block;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    line-height: 1.75rem;
-    letter-spacing: 4px;
-    color: white;
-    padding: 8px 32px;
-    background: #000000;
-    border-radius: 8px;
-    margin: 3rem 0;
-
-    &:hover {
-      background-color: #1a1a26;
-    }
-
-    a {
-      color: inherit;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
+  &:hover {
+    background-color: #1a1a26;
   }
 }
 </style>
